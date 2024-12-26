@@ -34,17 +34,17 @@ FROM
 	<title>
 		<band height="70" splitType="Stretch">
 			<image>
-				<reportElement x="275" y="0" width="300" height="64" uuid="e4aae78e-fbf5-4543-9916-f3a26ba0ab41"/>
-				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+				<reportElement x="275" y="0" width="280" height="68" uuid="e4aae78e-fbf5-4543-9916-f3a26ba0ab41"/>
+				<imageExpression><![CDATA["banner logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="093a8ac2-6f6c-4148-9cb2-1f3f9e72df39"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Leaf Green Title]]></text>
+				<text><![CDATA[Patel Provision Store]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="be1457a6-b4a6-4bc4-a3bb-da89e4e9730e"/>
-				<text><![CDATA[Leaf Green SubTitle]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -61,35 +61,35 @@ FROM
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="1e9eb2e5-8baa-4ba9-bd91-710f73e61fb7"/>
-				<text><![CDATA[sales_saleid]]></text>
+				<text><![CDATA[saleid]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="09c51932-295e-442d-aa8d-8475b84027f8"/>
-				<text><![CDATA[sales_INID]]></text>
+				<reportElement style="Column header" x="69" y="19" width="55" height="15" uuid="09c51932-295e-442d-aa8d-8475b84027f8"/>
+				<text><![CDATA[INID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="79e83948-3997-4a9e-b584-d695fae5b4b7"/>
-				<text><![CDATA[sales_Cid]]></text>
+				<reportElement style="Column header" x="124" y="19" width="52" height="15" uuid="79e83948-3997-4a9e-b584-d695fae5b4b7"/>
+				<text><![CDATA[Cid]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="36115b01-7e02-4740-933e-d243d3c70355"/>
-				<text><![CDATA[sales_customer_name]]></text>
+				<reportElement style="Column header" x="176" y="19" width="98" height="15" uuid="36115b01-7e02-4740-933e-d243d3c70355"/>
+				<text><![CDATA[customer_name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="86294539-ee0f-466d-b87b-f9d6219a8a4a"/>
-				<text><![CDATA[sales_Total_Qty]]></text>
+				<text><![CDATA[Total_Qty]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="825c6531-77d5-4b71-9e75-d2db203d66c7"/>
-				<text><![CDATA[sales_Total_Bill]]></text>
+				<text><![CDATA[Total_Bill]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="ad242902-8679-45bd-a241-f1021edc7c01"/>
-				<text><![CDATA[sales_Status]]></text>
+				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="59ad78a9-61f1-4eeb-810d-ae30d8d2ed34"/>
-				<text><![CDATA[sales_Balance]]></text>
+				<text><![CDATA[Balance]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -106,15 +106,11 @@ FROM
 				<textFieldExpression><![CDATA[$F{sales_saleid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="6b3acc5f-e3e4-4f8c-b7c2-218498507142"/>
+				<reportElement style="Detail" x="69" y="0" width="55" height="15" uuid="6b3acc5f-e3e4-4f8c-b7c2-218498507142"/>
 				<textFieldExpression><![CDATA[$F{sales_INID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="1f262520-6715-4b70-ae12-722b245c9483"/>
-				<textFieldExpression><![CDATA[$F{sales_Cid}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="9e8a5b47-f6eb-4e84-b4d3-a767894b1959"/>
+				<reportElement style="Detail" x="176" y="0" width="98" height="15" uuid="9e8a5b47-f6eb-4e84-b4d3-a767894b1959"/>
 				<textFieldExpression><![CDATA[$F{sales_customer_name}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -132,6 +128,10 @@ FROM
 			<textField>
 				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="04ea7c9f-bb72-4deb-ab52-1a0a26b3f63d"/>
 				<textFieldExpression><![CDATA[$F{sales_Balance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="124" y="1" width="52" height="15" uuid="1f262520-6715-4b70-ae12-722b245c9483"/>
+				<textFieldExpression><![CDATA[$F{sales_Cid}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -40,6 +40,10 @@ public class customer extends javax.swing.JPanel {
                 v.add(rs.getString(1));
                 v.add(rs.getString(2));
                 v.add(rs.getString(3));
+                v.add(rs.getString(4));
+                v.add(rs.getString(5));
+                v.add(rs.getString(6));
+                v.add(rs.getString(7));
 
                 dt.addRow(v);
                 
@@ -70,6 +74,14 @@ public class customer extends javax.swing.JPanel {
         jButton22 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
+        c_adr = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        c_typ = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        c_cper = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        c_pmob = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -151,27 +163,83 @@ public class customer extends javax.swing.JPanel {
             }
         });
 
+        c_adr.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        c_adr.setText("0");
+        c_adr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_adrjTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setText("Address : ");
+
+        c_typ.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        c_typ.setText("0");
+        c_typ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_typjTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setText("Type : ");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setText("Contect Person :");
+
+        c_cper.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        c_cper.setText("0");
+        c_cper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_cperjTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel18.setText("Mobile : ");
+
+        c_pmob.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        c_pmob.setText("0");
+        c_pmob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_pmobjTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton21)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addGap(27, 27, 27)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c_tp, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(c_tp, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_adr, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_typ, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_cper, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_pmob, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton21)
+                        .addGap(27, 27, 27)
                         .addComponent(jButton22)
                         .addGap(27, 27, 27)
                         .addComponent(jButton23)
                         .addGap(36, 36, 36)
                         .addComponent(jButton24)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,25 +252,41 @@ public class customer extends javax.swing.JPanel {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(c_tp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(c_adr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(c_typ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(c_cper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(c_pmob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton21)
                     .addComponent(jButton22)
                     .addComponent(jButton23)
                     .addComponent(jButton24))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
 
         jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Customer Name", "T.P Number"
+                "ID", "Customer Name", "T.P Number", "Address", "Type", "Contact Person", "Mobile"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,7 +343,7 @@ public class customer extends javax.swing.JPanel {
         jLabel4.setText("Name or ID :");
 
         c_search_tb1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        c_search_tb1.setText("0");
+        c_search_tb1.setToolTipText("Search");
         c_search_tb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_search_tb1ActionPerformed(evt);
@@ -281,30 +365,30 @@ public class customer extends javax.swing.JPanel {
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(c_search_tb1)
+                        .addComponent(c_search_tb1))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(c_search_tb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jLabel4)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(302, 302, 302))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -313,14 +397,14 @@ public class customer extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133))
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -343,10 +427,16 @@ public class customer extends javax.swing.JPanel {
         //save
         String name = c_name.getText();
         String tp = c_tp.getText();
+        String addr = c_adr.getText();
+        String typ = c_typ.getText();
+        String conp = c_cper.getText();
+        String mob = c_pmob.getText();
+        
         
         try{
             Statement s = db.mycon().createStatement();
-            s.executeUpdate(" INSERT INTO customer (customer_name, Tp_Number) VALUES ('"+name+"','"+tp+"')");
+            s.executeUpdate(" INSERT INTO customer (customer_name, Tp_Number, Address, Type, Contact_Person, Mobile) "
+                    + "VALUES ('"+name+"','"+tp+"','"+addr+"','"+typ+"','"+conp+"','"+mob+"')");
             JOptionPane.showMessageDialog(null,"Data Saved");
             
         }catch (Exception e){
@@ -374,6 +464,10 @@ public class customer extends javax.swing.JPanel {
             if(rs.next()){
                 c_name.setText(rs.getString("customer_name"));
                 c_tp.setText(rs.getString("Tp_Number"));
+                c_adr.setText(rs.getString("Address"));
+                c_typ.setText(rs.getString("Type"));
+                c_cper.setText(rs.getString("Contact_Person"));
+                c_pmob.setText(rs.getString("Mobile"));
             }
         }catch (Exception e){
             System.out.println(e);
@@ -388,10 +482,16 @@ public class customer extends javax.swing.JPanel {
         String name = c_name.getText();
         String tp = c_tp.getText();
         String id = c_search.getText();
+        String addr = c_adr.getText();
+        String typ = c_typ.getText();
+        String conp = c_cper.getText();
+        String mob = c_pmob.getText();
+
         
         try{
             Statement s = db.mycon().createStatement();
-            s.executeUpdate(" UPDATE customer SET customer_name ='"+name+"' , Tp_Number ='"+tp+"' WHERE cid = '"+id+"'");
+            s.executeUpdate(" UPDATE customer SET customer_name ='"+name+"' , Tp_Number ='"+tp+"' , Address ='"+addr+"' , Type ='"+typ+"' , Contact_Person ='"+conp+"' , Mobile ='"+mob+"' "
+                    + "WHERE cid = '"+id+"'");
             JOptionPane.showMessageDialog(null,"Data Updated");
 
             
@@ -427,10 +527,18 @@ public class customer extends javax.swing.JPanel {
         String id = jTable1.getValueAt(r,0).toString();
         String name = jTable1.getValueAt(r,1).toString();
         String tp = jTable1.getValueAt(r,2).toString();
+        String ad = jTable1.getValueAt(r,3).toString();
+        String ty = jTable1.getValueAt(r,4).toString();
+        String cp = jTable1.getValueAt(r,5).toString();
+        String cpm = jTable1.getValueAt(r,6).toString();
 
         c_search.setText(id);
         c_name.setText(name);
         c_tp.setText(tp);
+        c_adr.setText(ad);
+        c_typ.setText(ty);
+        c_cper.setText(cp);
+        c_pmob.setText(cpm);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void c_search_tb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_search_tb1ActionPerformed
@@ -451,6 +559,10 @@ public class customer extends javax.swing.JPanel {
                 v.add(rs.getString(1));
                 v.add(rs.getString(2));
                 v.add(rs.getString(3));
+                v.add(rs.getString(4));
+                v.add(rs.getString(5));
+                v.add(rs.getString(6));
+                v.add(rs.getString(7));
                 
                 dt.addRow(v);
                 
@@ -464,18 +576,42 @@ public class customer extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_c_search_tb1KeyReleased
 
+    private void c_adrjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_adrjTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_adrjTextField1ActionPerformed
+
+    private void c_typjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_typjTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_typjTextField1ActionPerformed
+
+    private void c_cperjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_cperjTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_cperjTextField1ActionPerformed
+
+    private void c_pmobjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_pmobjTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_pmobjTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField c_adr;
+    private javax.swing.JTextField c_cper;
     private javax.swing.JTextField c_name;
+    private javax.swing.JTextField c_pmob;
     private javax.swing.JTextField c_search;
     private javax.swing.JTextField c_search_tb1;
     private javax.swing.JTextField c_tp;
+    private javax.swing.JTextField c_typ;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

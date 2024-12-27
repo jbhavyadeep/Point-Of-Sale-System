@@ -6,6 +6,7 @@ package point.of.sale.system;
 
 import java.awt.HeadlessException;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -301,18 +302,19 @@ public class sales extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(u_price)
-                    .addComponent(jLabel7)
-                    .addComponent(com_cus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tot_price)
-                        .addComponent(jLabel13)))
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(u_price)
+                        .addComponent(jLabel7)
+                        .addComponent(com_cus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
 
@@ -636,6 +638,7 @@ public class sales extends javax.swing.JPanel {
                 
             }
             
+            
             JOptionPane.showMessageDialog(null,"Data Saved");
             
             
@@ -686,6 +689,21 @@ public class sales extends javax.swing.JPanel {
         }catch(SQLException e){
             System.out.println(e);
         }
+        
+        //print or view bill
+        
+        try{
+            
+        HashMap para = new HashMap();
+        para.put("inv_id", inid.getText()); // inv_id is ireport parameter
+        
+        ReportView r = new ReportView("src\\reports\\print.jasper",para);
+        r.setVisible(true);
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void com_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_proActionPerformed

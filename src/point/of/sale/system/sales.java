@@ -21,6 +21,9 @@ public class sales extends javax.swing.JPanel {
 
     public static String barcode_c;
     public static String cus_id = "0";
+    public static String pro_qty = "0";
+    public static String sale_qty = "0";
+    
     
     
     
@@ -141,9 +144,10 @@ public class sales extends javax.swing.JPanel {
        bln_due.setText(String.valueOf(due));
         
       
-        
+   
         
     }
+  
     
     
     
@@ -259,6 +263,11 @@ public class sales extends javax.swing.JPanel {
 
         p_qty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         p_qty.setText("0");
+        p_qty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p_qtyActionPerformed(evt);
+            }
+        });
         p_qty.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 p_qtyKeyReleased(evt);
@@ -569,7 +578,9 @@ public class sales extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // add cart to product details;
-        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+        
+        if(Integer.parseInt(sale_qty)<=Integer.parseInt(pro_qty)){
+             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
         Vector v = new Vector();
         
         v.add(inid.getText());//invoice id
@@ -580,9 +591,17 @@ public class sales extends javax.swing.JPanel {
        
         v.add(tot_price.getText());// total price
         
+        
         dt.addRow(v);
         cart_total();
         tot();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Quantity left in Stock: "+pro_qty);
+            
+
+        }
+       
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -598,6 +617,7 @@ public class sales extends javax.swing.JPanel {
         }catch(Exception e){
             System.out.println(e);
         }
+
         cart_total(); 
         tot();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -714,11 +734,12 @@ public class sales extends javax.swing.JPanel {
         try{
             Statement s = db.mycon().createStatement();
             
-            ResultSet rs = s.executeQuery("SELECT Bar_code, price FROM product WHERE product_name ='"+name+"'");
+            ResultSet rs = s.executeQuery("SELECT Bar_code, price, quantity FROM product WHERE product_name ='"+name+"'");
             
             if(rs.next()){
                 u_price.setText(rs.getString("price"));
                 barcode_c= rs.getString("Bar_code");
+                pro_qty = rs.getString("quantity");
             }
             
         
@@ -732,6 +753,7 @@ public class sales extends javax.swing.JPanel {
 
     private void p_qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_qtyKeyReleased
         pro_tot_cal();
+        sale_qty = p_qty.getText();
     }//GEN-LAST:event_p_qtyKeyReleased
 
     private void paid_amtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paid_amtKeyReleased
@@ -765,6 +787,9 @@ public class sales extends javax.swing.JPanel {
             System.out.println(e);
         }
     }//GEN-LAST:event_com_cusActionPerformed
+
+    private void p_qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_qtyActionPerformed
+    }//GEN-LAST:event_p_qtyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

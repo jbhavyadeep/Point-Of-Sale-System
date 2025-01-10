@@ -4,6 +4,7 @@
  */
 package point.of.sale.system;
 import java.sql.*;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -87,6 +88,48 @@ public class product extends javax.swing.JPanel {
             }
             
         }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void productSearch(){
+         String name = p_search_tb1.getText();
+         String bcode = ps_barcode.getText();
+         
+
+         String supName = ps_supname.getText();
+         
+        
+        try{
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            Statement s = db.mycon().createStatement();
+            dt.setRowCount(0);
+
+            ResultSet rs = s.executeQuery(" SELECT * FROM product WHERE product_name LIKE '%"+name+"%' AND Bar_code LIKE '%"+bcode+"%' AND supplier_name LIKE '%"+supName+"%'");
+            while(rs.next()){
+                Vector v = new Vector();
+                v.add(rs.getString(1));
+                v.add(rs.getString(2));
+                v.add(rs.getString(3));
+                v.add(rs.getString(4));
+                v.add(rs.getString(5));
+                v.add(rs.getString(6));
+                v.add(rs.getString(7));
+                v.add(rs.getString(8));
+                v.add(rs.getString(9));
+                v.add(rs.getString(10));
+                v.add(rs.getString(11));
+                v.add(rs.getString(12));
+                v.add(rs.getString(13));
+                v.add(rs.getString(14));
+                v.add(rs.getString(15));
+
+                dt.addRow(v);
+
+            }
+
+        }catch (SQLException e){
+            tb_load();
             System.out.println(e);
         }
     }
@@ -202,6 +245,10 @@ public class product extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         p_search_tb1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        ps_barcode = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        ps_supname = new javax.swing.JTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -761,7 +808,6 @@ public class product extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         p_search_tb1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_search_tb1.setText("0");
         p_search_tb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p_search_tb1ActionPerformed(evt);
@@ -779,39 +825,97 @@ public class product extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Name or ID :");
 
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel19.setText("Barcode :");
+
+        ps_barcode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ps_barcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_barcodeActionPerformed(evt);
+            }
+        });
+        ps_barcode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ps_barcodeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ps_barcodeKeyReleased(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel21.setText("Supplier :");
+
+        ps_supname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ps_supname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ps_supnameActionPerformed(evt);
+            }
+        });
+        ps_supname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ps_supnameKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ps_supnameKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap(124, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(p_search_tb1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242))
-            .addComponent(jScrollPane1)
+                .addComponent(p_search_tb1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ps_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ps_supname, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(p_search_tb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(66, 66, 66)
+                    .addComponent(jLabel8)
+                    .addComponent(ps_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ps_supname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Search Product", jPanel7);
@@ -1048,39 +1152,7 @@ String exdate = exLocalDate.format(formatter);
 
     private void p_search_tb1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_search_tb1KeyReleased
         // search table content
-        String name = p_search_tb1.getText();
-        try{
-            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            Statement s = db.mycon().createStatement();
-            dt.setRowCount(0);
-
-            ResultSet rs = s.executeQuery(" SELECT * FROM product WHERE pid ='"+name+"' or product_name LIKE '%"+name+"%'");
-            while(rs.next()){
-                Vector v = new Vector();
-                v.add(rs.getString(1));
-                v.add(rs.getString(2));
-                v.add(rs.getString(3));
-                v.add(rs.getString(4));
-                v.add(rs.getString(5));
-                v.add(rs.getString(6));
-                v.add(rs.getString(7));
-                v.add(rs.getString(8));
-                v.add(rs.getString(9));
-                v.add(rs.getString(10));
-                v.add(rs.getString(11));
-                v.add(rs.getString(12));
-                v.add(rs.getString(13));
-                v.add(rs.getString(14));
-                v.add(rs.getString(15));
-
-                dt.addRow(v);
-
-            }
-
-        }catch (SQLException e){
-            tb_load();
-            System.out.println(e);
-        }
+       productSearch();
     }//GEN-LAST:event_p_search_tb1KeyReleased
 
     private void p_search_tb1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_search_tb1KeyPressed
@@ -1217,6 +1289,32 @@ String exdate = exLocalDate.format(formatter);
         
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void ps_barcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_barcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ps_barcodeActionPerformed
+
+    private void ps_barcodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ps_barcodeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ps_barcodeKeyPressed
+
+    private void ps_barcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ps_barcodeKeyReleased
+        // TODO add your handling code here:
+        productSearch();
+    }//GEN-LAST:event_ps_barcodeKeyReleased
+
+    private void ps_supnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ps_supnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ps_supnameActionPerformed
+
+    private void ps_supnameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ps_supnameKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ps_supnameKeyPressed
+
+    private void ps_supnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ps_supnameKeyReleased
+        // TODO add your handling code here:
+        productSearch();
+    }//GEN-LAST:event_ps_supnameKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> com_Cat;
@@ -1239,7 +1337,9 @@ String exdate = exLocalDate.format(formatter);
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1279,6 +1379,8 @@ String exdate = exLocalDate.format(formatter);
     private javax.swing.JTextField p_sid;
     private javax.swing.JTextField p_type;
     private javax.swing.JTextField p_unit;
+    private javax.swing.JTextField ps_barcode;
+    private javax.swing.JTextField ps_supname;
     private javax.swing.JTextField t_id;
     private javax.swing.JTextField t_name;
     // End of variables declaration//GEN-END:variables

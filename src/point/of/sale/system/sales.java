@@ -4,7 +4,9 @@
  */
 package point.of.sale.system;
 
+import com.lowagie.text.pdf.Barcode;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ public class sales extends javax.swing.JPanel {
     public static String cus_id = "0";
     public static String pro_qty = "0";
     public static String sale_qty = "0";
+    public static String Select_product_name =null;
     
     public Double Stock_qty = 0.0;
     
@@ -96,7 +99,7 @@ public class sales extends javax.swing.JPanel {
     }
     public void pro_tot_cal(){
         //product price calculator
-            
+        try{
         Double qt = Double.valueOf(p_qty.getText());
         Double price = Double.valueOf(u_price.getText());
         Double total;
@@ -104,6 +107,10 @@ public class sales extends javax.swing.JPanel {
         total = qt * price;
         
         tot_price.setText(String.valueOf(total));
+        }catch(Exception e){
+            System.out.println(e);
+        }    
+        
         
     }
    
@@ -193,7 +200,32 @@ public class sales extends javax.swing.JPanel {
     }
   
     
-  
+     public void add_to_cart(){
+          if(Double.parseDouble(sale_qty)<=Double.parseDouble(pro_qty)){
+             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+        Vector v = new Vector();
+        
+        v.add(inid.getText());//invoice id
+        v.add(com_pro.getSelectedItem().toString());//product name
+       // v.add(Select_product_name);
+
+        v.add(barcode_c);//barcode
+        v.add(p_qty.getText());// product qty
+        v.add(u_price.getText());// unit price
+       
+        v.add(tot_price.getText());// total price
+        
+        
+        dt.addRow(v);
+        cart_total();
+        tot();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Quantity left in Stock: "+pro_qty);
+            
+
+        }
+     }
 
   
     @SuppressWarnings("unchecked")
@@ -358,6 +390,9 @@ public class sales extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 p_barcodeKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                p_barcodeKeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -406,30 +441,32 @@ public class sales extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(com_cus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(l_stqty1))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(l_stqty1))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
+                        .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(com_cus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(p_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(l_stqty)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tot_price)
+                        .addComponent(jLabel13))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(u_price)
-                        .addComponent(jLabel7)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tot_price)
-                            .addComponent(jLabel13)))
-                    .addComponent(jLabel11))
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(p_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)
+                        .addComponent(l_stqty)
+                        .addComponent(jLabel11)))
                 .addContainerGap())
         );
 
@@ -723,32 +760,7 @@ public class sales extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // add cart to product details;
-        
-        if(Double.parseDouble(sale_qty)<=Double.parseDouble(pro_qty)){
-             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-        Vector v = new Vector();
-        
-        v.add(inid.getText());//invoice id
-        v.add(com_pro.getSelectedItem().toString());//product name
-        v.add(barcode_c);//barcode
-        v.add(p_qty.getText());// product qty
-        v.add(u_price.getText());// unit price
-       
-        v.add(tot_price.getText());// total price
-        
-        
-        dt.addRow(v);
-        cart_total();
-        tot();
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Quantity left in Stock: "+pro_qty);
-            
-
-        }
-       
-        
-        
+       add_to_cart();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -888,6 +900,9 @@ public class sales extends javax.swing.JPanel {
                 pro_qty = rs.getString("quantity");
                 l_stqty.setText(pro_qty);
                 p_barcode.setText(barcode_c);
+               // Select_product_name = rs.getString("product_name");
+
+                
             }
             
         
@@ -897,11 +912,20 @@ public class sales extends javax.swing.JPanel {
         }catch(SQLException e){
             System.out.println(e);
         }
+        p_qty.setText("1");
+        p_qty.requestFocus();
     }//GEN-LAST:event_com_proActionPerformed
 
     private void p_qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_qtyKeyReleased
         pro_tot_cal();
         sale_qty = p_qty.getText();
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            add_to_cart();
+            p_barcode.setText("");
+            p_barcode.requestFocus();
+                   
+        }
     }//GEN-LAST:event_p_qtyKeyReleased
 
     private void paid_amtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paid_amtKeyReleased
@@ -945,7 +969,7 @@ public class sales extends javax.swing.JPanel {
 
     private void p_barcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_barcodeKeyReleased
         // 
-         String bcode = p_barcode.getText();
+        String bcode = p_barcode.getText();
                 
         try{
             Statement s = db.mycon().createStatement();
@@ -957,16 +981,25 @@ public class sales extends javax.swing.JPanel {
                 barcode_c= rs.getString("Bar_code");
                 pro_qty = rs.getString("quantity");
                 l_stqty.setText(pro_qty);
+               // Select_product_name = rs.getString("product_name");
                 com_pro.setSelectedItem(rs.getString("product_name"));
             }
             
         
         pro_tot_cal();
         tot();
-            
+        
+      
         }catch(SQLException e){
             System.out.println(e);
         }
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            add_to_cart();
+            p_qty.setText("1");
+            p_qty.requestFocus();
+                   
+        }
+        
     }//GEN-LAST:event_p_barcodeKeyReleased
 
     private void disc_perActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disc_perActionPerformed
@@ -977,6 +1010,12 @@ public class sales extends javax.swing.JPanel {
         // TODO add your handling code here:
         tot();
     }//GEN-LAST:event_disc_perKeyReleased
+
+    private void p_barcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_barcodeKeyTyped
+        // TODO add your handling code here:
+     
+
+    }//GEN-LAST:event_p_barcodeKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

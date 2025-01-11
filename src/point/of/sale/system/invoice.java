@@ -148,6 +148,11 @@ public class invoice extends javax.swing.JPanel {
 
         cus_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cus_name.setText("0");
+        cus_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cus_nameActionPerformed(evt);
+            }
+        });
         cus_name.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cus_nameKeyReleased(evt);
@@ -262,6 +267,10 @@ public class invoice extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dataload();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cus_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cus_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cus_nameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

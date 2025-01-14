@@ -14,6 +14,7 @@ public class Home extends javax.swing.JFrame {
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         load();
         
+        
     }
     
     public void load(){

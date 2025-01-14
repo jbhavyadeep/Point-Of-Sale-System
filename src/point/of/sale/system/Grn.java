@@ -219,6 +219,11 @@ public class Grn extends javax.swing.JPanel {
 
         p_qty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         p_qty.setText("0");
+        p_qty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p_qtyActionPerformed(evt);
+            }
+        });
         p_qty.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 p_qtyKeyReleased(evt);
@@ -655,9 +660,9 @@ public class Grn extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Total price calcluate
         
-        int qty = Integer.parseInt(p_qty.getText());
-        int price = Integer.parseInt(txt_cost.getText());
-        int sum = qty*price;
+        Double qty = Double.valueOf(p_qty.getText());
+        Double price = Double.valueOf(txt_cost.getText());
+        Double sum = qty*price;
         
         
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
@@ -737,6 +742,10 @@ public class Grn extends javax.swing.JPanel {
         discount();
         totcall();
     }//GEN-LAST:event_bill_dtsKeyReleased
+
+    private void p_qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_qtyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p_qtyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

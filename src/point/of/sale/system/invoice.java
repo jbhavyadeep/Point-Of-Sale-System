@@ -39,7 +39,6 @@ public class invoice extends javax.swing.JPanel {
                 v.add(rs.getString(5));
                 v.add(rs.getString(6));
                 v.add(rs.getString(7));
-                v.add(rs.getString(8));
                 
                 dt.addRow(v);
             }
@@ -63,7 +62,7 @@ public class invoice extends javax.swing.JPanel {
             dt.setRowCount(0);
             Statement s = db.mycon().createStatement();
             
-            ResultSet rs = s.executeQuery("SELECT * from sales WHERE INID LIKE '%"+inv_id+"%' AND customer_name LIKE '%"+c_Name+"%' AND Status LIKE '%"+sta+"%'");
+            ResultSet rs = s.executeQuery("SELECT * from sales WHERE INID LIKE '%"+inv_id+"%' AND customer_name LIKE '%"+c_Name+"%'");
             
             while(rs.next()){
                 
@@ -76,7 +75,6 @@ public class invoice extends javax.swing.JPanel {
                 v.add(rs.getString(5));
                 v.add(rs.getString(6));
                 v.add(rs.getString(7));
-                v.add(rs.getString(8));
                 
                 dt.addRow(v);
              
@@ -111,13 +109,13 @@ public class invoice extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "SalesID", "INID", "CID", "Customer Name", "Total Qty", "Total Bill", "Status", "Balance"
+                "SalesID", "INID", "CID", "Customer Name", "Total Qty", "Total Bill", "Balance"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -261,7 +259,7 @@ public class invoice extends javax.swing.JPanel {
 
     private void com_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_statusActionPerformed
         // TODO add your handling code here:
-        search_para();
+       
     }//GEN-LAST:event_com_statusActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -4,6 +4,7 @@
  */
 package point.of.sale.system;
 import java.sql.*;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -1116,6 +1121,18 @@ public class product extends javax.swing.JPanel {
         }
 
         tb_load();
+        
+//        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+//        MessageFormat header = new MessageFormat("Header: Default Printer Example");
+//        MessageFormat footer = new MessageFormat("Page {0}");
+//        PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+//
+//
+//        try {
+//            p_des.print(header,footer,false,defaultService, attributes,false);
+//
+//        } catch (Exception e) {
+//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

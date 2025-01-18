@@ -178,13 +178,13 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jToggleButton7)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(stk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jToggleButton8)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton9)
-                .addGap(19, 19, 19))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         panel_load.setBorder(javax.swing.BorderFactory.createEtchedBorder());

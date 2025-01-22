@@ -7,6 +7,7 @@ package point.of.sale.system;
 import com.lowagie.text.pdf.Barcode;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -15,11 +16,14 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,6 +42,8 @@ public class sales extends javax.swing.JPanel {
     public Double Total_amt = 0.0;
     public Double Settle_amt = 0.0;
     public Double paid = 0.0;
+    public Double recieved = 0.0;
+    public Double change = 0.0;
     
     public sales() {
         initComponents();
@@ -123,6 +129,7 @@ public class sales extends javax.swing.JPanel {
         
         
     }
+    
    
     public void cart_total(){
         
@@ -161,13 +168,17 @@ public class sales extends javax.swing.JPanel {
        Double due = 0.0;
        
        if(Settle_amt<=0){
-          due = paid + Settle_amt -(discount*tot/100.00); 
+          due = paid + Settle_amt -(discount*tot/100.00);
+          System.out.println("x");
+
        }
 //       else if(Cus_balance>=0){
 //          due =  paid + Cus_balance - Total_amt;
 //        }
        else{
            due =  paid - Settle_amt -(discount*tot/100.00);
+           System.out.println("y");
+
        }
       /// else if(Cus_balance>0){
      //       
@@ -182,6 +193,36 @@ public class sales extends javax.swing.JPanel {
        
 
     }
+    
+    public void changeCal(){
+        if(recieved >= (-Settle_amt) && Settle_amt<0){
+            paid = -Settle_amt;
+            change= recieved - paid;
+            System.out.println("a");
+        }else if(recieved < (-Settle_amt) && recieved >= Total_amt && Settle_amt<0){
+            paid = Total_amt;
+            change = recieved - paid;
+            System.out.println("b");
+
+        }else if(recieved == 0 && Settle_amt<0){
+            paid = recieved;
+            change = 0.0;
+            System.out.println("d");
+        }
+        else{
+            paid = Total_amt;
+            change = 0.0;
+            System.out.println("c");
+
+        }
+        paid_amt.setText(paid.toString());
+        System.out.println(paid);
+        System.out.println(change);
+        System.out.println(recieved);
+        tot();
+
+    }
+    
     
     public void stckup(){
         //get all table product id and sell qty
@@ -933,14 +974,16 @@ public class sales extends javax.swing.JPanel {
             
             int rw = jTable1.getSelectedRow();
             dt.removeRow(rw);
+            cart_total(); 
+            settleAmt();
+            tot();
+            
             
         }catch(Exception e){
             System.out.println(e);
         }
 
-        cart_total(); 
-        tot();
-        settleAmt();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -949,6 +992,7 @@ public class sales extends javax.swing.JPanel {
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
         dt.setRowCount(0);
         cart_total(); 
+        settleAmt();
         tot();
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1146,29 +1190,13 @@ public class sales extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_p_qtyKeyReleased
 
-    private JPanel getPanel() {
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Java Technology Dive Log");
-        
-
-        panel.add(label);
-
-        return panel;
-    }
+    
 
     
     private void paid_amtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paid_amtKeyReleased
  
        tot();
-       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-           JOptionPane jop = new JOptionPane();
-           JDialog dialog = jop.createDialog("Calculate Change");
-           //dialog.setLayout(new BorderLayout());
-          // JLabel im = new JLabel("Enter Cash Recieved", JLabel.CENTER);
-           dialog.add(getPanel());
-           
-           dialog.setVisible(true);
-       }
+      
         
     }//GEN-LAST:event_paid_amtKeyReleased
 
@@ -1268,6 +1296,7 @@ public class sales extends javax.swing.JPanel {
      
 
     }//GEN-LAST:event_p_barcodeKeyTyped
+    
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -1276,6 +1305,14 @@ public class sales extends javax.swing.JPanel {
         }catch(Exception e){
             
         }
+
+        changecal chn = new changecal(new javax.swing.JFrame(), true);
+        chn.setLocationRelativeTo(null);
+        chn.setVisible(true);
+        recieved = chn.getrcvAmount();
+        changeCal();
+        
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
 

@@ -45,7 +45,6 @@ public class changecal extends javax.swing.JDialog {
         jLabel1.setText("Enter Recieved Amount :");
 
         rcv_amt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        rcv_amt.setText("00");
         rcv_amt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rcv_amtActionPerformed(evt);
@@ -104,7 +103,7 @@ public class changecal extends javax.swing.JDialog {
             dispose();
         }
         }catch(NumberFormatException e){
-            System.err.println(e);
+            System.out.println(e);
         }
         
     }//GEN-LAST:event_rcv_amtKeyReleased

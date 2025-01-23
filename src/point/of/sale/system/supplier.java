@@ -21,6 +21,7 @@ public class supplier extends javax.swing.JPanel {
     public supplier() {
         initComponents();
         tb_load();
+        
     }
 
     public void tb_load(){

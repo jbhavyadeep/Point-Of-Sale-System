@@ -12,8 +12,7 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         
         this.setExtendedState(Home.MAXIMIZED_BOTH);
-        load();
-        
+        load();     
         
     }
    
@@ -175,16 +174,16 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton4)
                 .addGap(18, 18, 18)
-                .addComponent(jToggleButton7)
-                .addGap(18, 18, 18)
                 .addComponent(jToggleButton10)
                 .addGap(18, 18, 18)
+                .addComponent(jToggleButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(stk)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton8)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton9)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         panel_load.setBorder(javax.swing.BorderFactory.createEtchedBorder());

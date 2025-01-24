@@ -110,7 +110,6 @@ public class employee extends javax.swing.JPanel {
         jButton21.setBackground(new java.awt.Color(151, 177, 49));
         jButton21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
         jButton21.setText("Save");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

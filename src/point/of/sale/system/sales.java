@@ -4,10 +4,7 @@
  */
 package point.of.sale.system;
 
-import com.lowagie.text.pdf.Barcode;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.*;

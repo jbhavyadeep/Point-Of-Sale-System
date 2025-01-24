@@ -123,7 +123,6 @@ public class supplier extends javax.swing.JPanel {
         jButton21.setBackground(new java.awt.Color(151, 177, 49));
         jButton21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
         jButton21.setText("Save");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +133,6 @@ public class supplier extends javax.swing.JPanel {
         jButton22.setBackground(new java.awt.Color(39, 121, 255));
         jButton22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton22.setForeground(new java.awt.Color(255, 255, 255));
-        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/search x30.png"))); // NOI18N
         jButton22.setText("Search");
         jButton22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +143,6 @@ public class supplier extends javax.swing.JPanel {
         jButton23.setBackground(new java.awt.Color(70, 147, 176));
         jButton23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton23.setForeground(new java.awt.Color(255, 255, 255));
-        jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/update.png"))); // NOI18N
         jButton23.setText("Update");
         jButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +153,6 @@ public class supplier extends javax.swing.JPanel {
         jButton24.setBackground(new java.awt.Color(175, 19, 20));
         jButton24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton24.setForeground(new java.awt.Color(255, 255, 255));
-        jButton24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remove.png"))); // NOI18N
         jButton24.setText("Delete");
         jButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,7 +417,7 @@ public class supplier extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

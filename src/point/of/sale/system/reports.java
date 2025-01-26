@@ -6,6 +6,7 @@
 package point.of.sale.system;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -122,12 +123,20 @@ public class reports extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // view all report
         try{
-            ReportView r = new ReportView("src\\reports\\sales_report.jasper");
-            r.setVisible(true);
-            
-        }catch(Exception e){
-            System.out.println(e);
+          //File f = new File("src\\resources\\sales_report.jrxml");
+           InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
+        if (inputStream == null) {
+            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
         }
+          JasperReport jr = JasperCompileManager.compileReport(inputStream);
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperViewer.viewReport(jp,false);
+          }
+ 
+catch(Exception ex)
+{
+    System.out.println(ex);
+}
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -136,14 +145,43 @@ public class reports extends javax.swing.JPanel {
       //  HashMap para = new HashMap();
        // para.put("invo_para", para_inid.getText());
         
-        ReportView r = new ReportView("src\\reports\\GRN_report.jasper");
-        r.setVisible(true);
+        try{
+          //File f = new File("src\\resources\\GRN_report.jrxml");
+           InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report.jrxml");
+        if (inputStream == null) {
+            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+        }
+          JasperReport jr = JasperCompileManager.compileReport(inputStream);
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperViewer.viewReport(jp,false);
+          }
+ 
+catch(Exception ex)
+{
+    System.out.println(ex);
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ReportView r = new ReportView("src\\reports\\Customer_report.jasper");
-        r.setVisible(true);
+//        ReportView r = new ReportView("src\\reports\\Customer_report.jasper");
+//        r.setVisible(true);
+    try{
+          //File f = new File("src\\resources\\Customer_report.jrxml");
+          InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
+        if (inputStream == null) {
+            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+        }
+          JasperReport jr = JasperCompileManager.compileReport(inputStream);
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperViewer.viewReport(jp,false);
+          }
+ 
+catch(Exception ex)
+{
+    System.out.println(ex);
+}
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

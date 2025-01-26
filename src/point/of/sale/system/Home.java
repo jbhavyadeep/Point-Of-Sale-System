@@ -81,6 +81,7 @@ public class Home extends javax.swing.JFrame {
 
         home_btn_grp.add(jToggleButton2);
         jToggleButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sales_menu.png"))); // NOI18N
         jToggleButton2.setText("Sales");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

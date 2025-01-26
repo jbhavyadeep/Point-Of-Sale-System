@@ -196,7 +196,7 @@ s.INID = ca.INID]]>
 		<band height="70" splitType="Stretch">
 			<image>
 				<reportElement x="275" y="0" width="300" height="64" uuid="d7cb9de5-f1d6-4e9a-8441-72f5e2127742"/>
-				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources/leaf_banner_green.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>

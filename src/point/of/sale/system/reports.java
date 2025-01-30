@@ -7,7 +7,11 @@ package point.of.sale.system;
 
 import java.io.File;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -20,7 +24,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author jbhav
  */
 public class reports extends javax.swing.JPanel {
-
+    Connection con = null;
     /**
      * Creates new form reports
      */
@@ -123,19 +127,21 @@ public class reports extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // view all report
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
           //File f = new File("src\\resources\\sales_report.jrxml");
            InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
         if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+            throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
         }
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
           }
  
-catch(Exception ex)
+catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
 {
-    System.out.println(ex);
+     System.out.println(ex);
 }
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -146,17 +152,19 @@ catch(Exception ex)
        // para.put("invo_para", para_inid.getText());
         
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
           //File f = new File("src\\resources\\GRN_report.jrxml");
            InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report.jrxml");
         if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+            throw new IllegalArgumentException("File not found in resources: GRN_report.jrxml");
         }
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
           }
  
-catch(Exception ex)
+catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
 {
     System.out.println(ex);
 }
@@ -164,23 +172,25 @@ catch(Exception ex)
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-//        ReportView r = new ReportView("src\\reports\\Customer_report.jasper");
+//       ReportView r = new ReportView("src\\resources\\Customer_report.jasper");
 //        r.setVisible(true);
     try{
+Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+
           //File f = new File("src\\resources\\Customer_report.jrxml");
           InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
         if (inputStream == null) {
             throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
         }
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,db.mycon());
+          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
           }
  
-catch(Exception ex)
+catch(ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
 {
-    System.out.println(ex);
-}
+ System.out.println(ex);}
     
     }//GEN-LAST:event_jButton3ActionPerformed
 

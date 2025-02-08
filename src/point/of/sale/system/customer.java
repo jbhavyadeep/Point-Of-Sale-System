@@ -15,28 +15,35 @@ import javax.swing.table.DefaultTableModel;
  */
 public class customer extends javax.swing.JPanel {
 
+    private final Statement s;
+    //public Statement s;
+
     /**
      * Creates new form customer
+     *
+     * @param s
+     * @throws java.sql.SQLException
      */
-    public customer() {
+    public customer(Statement s) throws SQLException {
+        this.s = s;
+
         initComponents();
         tb_load();
+
     }
 
-    public void tb_load(){
-        
-        
-        
-        try{
-            DefaultTableModel dt = (DefaultTableModel)jTable1.getModel();
+    public void tb_load() {
+
+        try {
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            
-            Statement s = db.mycon().createStatement();
+
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery(" SELECT * FROM customer");
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 Vector v = new Vector();
-                
+
                 v.add(rs.getString(1));
                 v.add(rs.getString(2));
                 v.add(rs.getString(3));
@@ -46,17 +53,14 @@ public class customer extends javax.swing.JPanel {
                 v.add(rs.getString(7));
 
                 dt.addRow(v);
-                
+                //db.closeConnection(db.mycon());
             }
-            
-        }catch (Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -422,15 +426,15 @@ public class customer extends javax.swing.JPanel {
         String typ = c_typ.getText();
         String conp = c_cper.getText();
         String mob = c_pmob.getText();
-        
-        
-        try{
-            Statement s = db.mycon().createStatement();
+
+        try {
+            //Statement s = db.mycon().createStatement();
             s.executeUpdate(" INSERT INTO customer (customer_name, Tp_Number, Address, Type, Contact_Person, Mobile) "
-                    + "VALUES ('"+name+"','"+tp+"','"+addr+"','"+typ+"','"+conp+"','"+mob+"')");
-            JOptionPane.showMessageDialog(null,"Data Saved");
-            
-        }catch (Exception e){
+                    + "VALUES ('" + name + "','" + tp + "','" + addr + "','" + typ + "','" + conp + "','" + mob + "')");
+            JOptionPane.showMessageDialog(null, "Data Saved");
+            //db.closeConnection(db.mycon());
+
+        } catch (Exception e) {
             System.out.println(e);
         }
         tb_load();
@@ -449,10 +453,10 @@ public class customer extends javax.swing.JPanel {
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
         // search button
         String search = c_search.getText();
-        try{
-            Statement s = db.mycon().createStatement();
-            ResultSet rs = s.executeQuery(" SELECT * FROM customer WHERE customer_name ='"+search+"' OR cid ='"+search+"' ");
-            if(rs.next()){
+        try {
+            //Statement s = db.mycon().createStatement();
+            ResultSet rs = s.executeQuery(" SELECT * FROM customer WHERE customer_name ='" + search + "' OR cid ='" + search + "' ");
+            if (rs.next()) {
                 c_name.setText(rs.getString("customer_name"));
                 c_tp.setText(rs.getString("Tp_Number"));
                 c_adr.setText(rs.getString("Address"));
@@ -460,7 +464,9 @@ public class customer extends javax.swing.JPanel {
                 c_cper.setText(rs.getString("Contact_Person"));
                 c_pmob.setText(rs.getString("Mobile"));
             }
-        }catch (Exception e){
+            // db.closeConnection(db.mycon());
+
+        } catch (SQLException e) {
             System.out.println(e);
         }
         tb_load();
@@ -469,7 +475,7 @@ public class customer extends javax.swing.JPanel {
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // update buton
-        
+
         String name = c_name.getText();
         String tp = c_tp.getText();
         String id = c_search.getText();
@@ -478,16 +484,14 @@ public class customer extends javax.swing.JPanel {
         String conp = c_cper.getText();
         String mob = c_pmob.getText();
 
-        
-        try{
-            Statement s = db.mycon().createStatement();
-            s.executeUpdate(" UPDATE customer SET customer_name ='"+name+"' , Tp_Number ='"+tp+"' , Address ='"+addr+"' , Type ='"+typ+"' , Contact_Person ='"+conp+"' , Mobile ='"+mob+"' "
-                    + "WHERE cid = '"+id+"'");
-            JOptionPane.showMessageDialog(null,"Data Updated");
+        try {
+            //Statement s = db.mycon().createStatement();
+            s.executeUpdate(" UPDATE customer SET customer_name ='" + name + "' , Tp_Number ='" + tp + "' , Address ='" + addr + "' , Type ='" + typ + "' , Contact_Person ='" + conp + "' , Mobile ='" + mob + "' "
+                    + "WHERE cid = '" + id + "'");
+            JOptionPane.showMessageDialog(null, "Data Updated");
 
-            
-            
-        }catch (Exception e){
+            //db.closeConnection(db.mycon());
+        } catch (Exception e) {
             System.out.println(e);
         }
         tb_load();
@@ -497,31 +501,31 @@ public class customer extends javax.swing.JPanel {
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         //Delete button
         String id = c_search.getText();
-        try{
-            Statement s = db.mycon().createStatement();
-            
-           s.executeUpdate(" DELETE FROM customer WHERE cid ='"+id+"' or customer_name ='"+id+"'");
-            JOptionPane.showMessageDialog(null,"Data Deleted");
+        try {
+            //Statement s = db.mycon().createStatement();
 
-           
-        }catch (Exception e){
+            s.executeUpdate(" DELETE FROM customer WHERE cid ='" + id + "' or customer_name ='" + id + "'");
+            JOptionPane.showMessageDialog(null, "Data Deleted");
+            //db.closeConnection(db.mycon());
+
+        } catch (Exception e) {
             System.out.println(e);
         }
         tb_load();
 
-        
+
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // table clicked by mouse get data to textfield
         int r = jTable1.getSelectedRow();
-        String id = jTable1.getValueAt(r,0).toString();
-        String name = jTable1.getValueAt(r,1).toString();
-        String tp = jTable1.getValueAt(r,2).toString();
-        String ad = jTable1.getValueAt(r,3).toString();
-        String ty = jTable1.getValueAt(r,4).toString();
-        String cp = jTable1.getValueAt(r,5).toString();
-        String cpm = jTable1.getValueAt(r,6).toString();
+        String id = jTable1.getValueAt(r, 0).toString();
+        String name = jTable1.getValueAt(r, 1).toString();
+        String tp = jTable1.getValueAt(r, 2).toString();
+        String ad = jTable1.getValueAt(r, 3).toString();
+        String ty = jTable1.getValueAt(r, 4).toString();
+        String cp = jTable1.getValueAt(r, 5).toString();
+        String cpm = jTable1.getValueAt(r, 6).toString();
 
         c_search.setText(id);
         c_name.setText(name);
@@ -539,13 +543,13 @@ public class customer extends javax.swing.JPanel {
     private void c_search_tb1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_search_tb1KeyReleased
         // search table content
         String name = c_search_tb1.getText();
-        try{
+        try {
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             dt.setRowCount(0);
 
-            ResultSet rs = s.executeQuery(" SELECT * FROM CUSTOMER WHERE cid ='"+name+"' or customer_name LIKE '%"+name+"%'");
-            while(rs.next()){
+            ResultSet rs = s.executeQuery(" SELECT * FROM CUSTOMER WHERE cid ='" + name + "' or customer_name LIKE '%" + name + "%'");
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString(1));
                 v.add(rs.getString(2));
@@ -554,14 +558,13 @@ public class customer extends javax.swing.JPanel {
                 v.add(rs.getString(5));
                 v.add(rs.getString(6));
                 v.add(rs.getString(7));
-                
+
                 dt.addRow(v);
-                
-                
-                
+
+                //  db.closeConnection(db.mycon());
             }
-            
-        }catch (Exception e){
+
+        } catch (Exception e) {
             tb_load();
             System.out.println(e);
         }

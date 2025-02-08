@@ -30,6 +30,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author jbhav
  */
 public class sales extends javax.swing.JPanel {
+    
+    private final Statement s;
 
     public static String barcode_c =null;
     public static String cus_id = "1";
@@ -44,7 +46,8 @@ public class sales extends javax.swing.JPanel {
     public Double recieved = 0.0;
     public Double change = 0.0;
     
-    public sales() {
+    public sales(Statement s) {
+        this.s = s;
         initComponents();
         data_load();
        
@@ -62,7 +65,7 @@ public class sales extends javax.swing.JPanel {
         //load customer
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM customer");
             
             Vector v = new Vector();
@@ -83,7 +86,7 @@ public class sales extends javax.swing.JPanel {
          //load Product
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM product");
             
             Vector v = new Vector();
@@ -102,7 +105,7 @@ public class sales extends javax.swing.JPanel {
         }
         //load latest invoice number
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM extra WHERE exid = 1");
             
             if(rs.next()){
@@ -243,7 +246,7 @@ public class sales extends javax.swing.JPanel {
             System.out.println(sell_qty);
             
             try{
-                Statement s = db.mycon().createStatement();
+                //Statement s = db.mycon().createStatement();
                 ResultSet rs = s.executeQuery("SELECT quantity FROM product WHERE Bar_code ='"+bcode+"'");
                 if (rs.next()) {
                    Stock_qty = Double.valueOf(rs.getString("quantity"));
@@ -257,8 +260,8 @@ public class sales extends javax.swing.JPanel {
             Double new_qty = st_qty - sel_qty;
             String nqty = String.valueOf(new_qty);
             try{
-                Statement ss = db.mycon().createStatement();
-                ss.executeUpdate("UPDATE product SET quantity = '"+nqty+"' WHERE Bar_code='"+bcode+"' ");
+                //Statement ss = db.mycon().createStatement();
+                s.executeUpdate("UPDATE product SET quantity = '"+nqty+"' WHERE Bar_code='"+bcode+"' ");
                 
 
             }catch(Exception e){
@@ -366,10 +369,11 @@ public class sales extends javax.swing.JPanel {
          //String name = com_cus.getSelectedItem().toString();
                 
         try{
-            String query = "SELECT Tp_Number FROM customer WHERE cid = ?";
-            PreparedStatement ps = db.mycon().prepareStatement(query);
-            ps.setString(1, cus_id);
-            ResultSet rs = ps.executeQuery();
+            String query = "SELECT Tp_Number FROM customer WHERE cid = '"+cus_id+"'";
+            //PreparedStatement ps = db.mycon().prepareStatement(query);
+            //ps.setString(1, cus_id);
+            
+            ResultSet rs = s.executeQuery(query);
             
             if(rs.next()){
                 Cus_balance = Double.valueOf(rs.getString("Tp_Number"));
@@ -1048,7 +1052,7 @@ public class sales extends javax.swing.JPanel {
 
                 
                 //cart DB
-                Statement s = db.mycon().createStatement();
+                //Statement s = db.mycon().createStatement();
                 s.executeUpdate("INSERT INTO cart (INID, product_name, Bar_code, qty, Unit_price, Total_Price) VALUES ('"+inid+"', '"+P_name+"','"+bar_code+"','"+qty+"','"+un_price+"', '"+tot_price+"') ");
                 
             }
@@ -1088,19 +1092,20 @@ public class sales extends javax.swing.JPanel {
 //                   Status = "Paid";
 //               }
                 
-                Statement ss = db.mycon().createStatement();
+                //Statement ss = db.mycon().createStatement();
                 
-                ss.executeUpdate("INSERT INTO sales (INID, Cid, customer_name, Total_Qty, Total_Bill, paid_amt) VALUES ('"+inv_id+"', '"+cus_id+"', '"+cname+"', '"+totqty+"', '"+tot_bil+"', '"+paid+"')");
-                ss.executeUpdate("UPDATE customer SET Tp_Number = '" + blnc + "' WHERE cid = '" + cus_id + "'");
+                s.executeUpdate("INSERT INTO sales (INID, Cid, customer_name, Total_Qty, Total_Bill, paid_amt) VALUES ('"+inv_id+"', '"+cus_id+"', '"+cname+"', '"+totqty+"', '"+tot_bil+"', '"+paid+"')");
+                s.executeUpdate("UPDATE customer SET Tp_Number = '" + blnc + "' WHERE cid = '" + cus_id + "'");
                 
         }catch(NumberFormatException | SQLException e){
             System.out.println(e);
         }
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             String id = inid.getText();
+         System.out.println("INVOICE id: " + id);
             s.executeUpdate("UPDATE extra SET val='"+id+"' WHERE exid = 1");
         }catch(SQLException e){
             System.out.println(e);
@@ -1137,7 +1142,7 @@ public class sales extends javax.swing.JPanel {
         String name = com_pro.getSelectedItem().toString();
                 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT Bar_code, Sell_price, quantity, product_name FROM product WHERE product_name ='"+name+"'");
             
@@ -1244,7 +1249,7 @@ public class sales extends javax.swing.JPanel {
         String name = com_cus.getSelectedItem().toString();
                 
         try {
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
 
             ResultSet rs = s.executeQuery("SELECT cid,customer_name FROM customer WHERE customer_name ='" + name + "'");
 
@@ -1281,7 +1286,7 @@ public class sales extends javax.swing.JPanel {
         String bcode = p_barcode.getText();
                 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT Bar_code, Sell_price, quantity,product_name FROM product WHERE Bar_code ='"+bcode+"'");
             

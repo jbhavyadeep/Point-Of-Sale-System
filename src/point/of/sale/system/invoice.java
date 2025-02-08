@@ -12,11 +12,15 @@ import javax.swing.table.DefaultTableModel;
  * @author jbhav
  */
 public class invoice extends javax.swing.JPanel {
+    private final Statement s;
 
     /**
      * Creates new form invoice
+     * @param s
      */
-    public invoice() {
+    public invoice(Statement s) {
+        this.s = s;
+
         initComponents();
         dataload();
     }
@@ -26,7 +30,7 @@ public class invoice extends javax.swing.JPanel {
             
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM sales");
             
             while(rs.next()){
@@ -60,7 +64,7 @@ public class invoice extends javax.swing.JPanel {
             
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * from sales WHERE INID LIKE '%"+inv_id+"%' AND customer_name LIKE '%"+c_Name+"%'");
             

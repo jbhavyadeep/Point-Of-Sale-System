@@ -14,11 +14,14 @@ import javax.swing.table.DefaultTableModel;
  * @author jbhav
  */
 public class employee extends javax.swing.JPanel {
+    private final Statement s;
 
     /**
      * Creates new form customer
      */
-    public employee() {
+    public employee(Statement s) {
+        this.s = s;
+
         initComponents();
         tb_load();
     }
@@ -31,7 +34,7 @@ public class employee extends javax.swing.JPanel {
             DefaultTableModel dt = (DefaultTableModel)jTable1.getModel();
             dt.setRowCount(0);
             
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery(" SELECT * FROM employee");
             
             while (rs.next()){
@@ -341,7 +344,7 @@ public class employee extends javax.swing.JPanel {
         String tp = c_tp.getText();
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             s.executeUpdate(" INSERT INTO employee (employee_name, Tp_Number) VALUES ('"+name+"','"+tp+"')");
             JOptionPane.showMessageDialog(null,"Data Saved");
             
@@ -365,7 +368,7 @@ public class employee extends javax.swing.JPanel {
         // search button
         String search = c_search.getText();
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery(" SELECT * FROM employee WHERE employee_name ='"+search+"' OR eid ='"+search+"' ");
             if(rs.next()){
                 c_name.setText(rs.getString("employee_name"));
@@ -386,7 +389,7 @@ public class employee extends javax.swing.JPanel {
         String id = c_search.getText();
         
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate(" UPDATE employee SET employee_name ='"+name+"' , Tp_Number ='"+tp+"' WHERE eid = '"+id+"'");
             JOptionPane.showMessageDialog(null,"Data Updated");
 
@@ -403,7 +406,7 @@ public class employee extends javax.swing.JPanel {
         //Delete button
         String id = c_search.getText();
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
            s.executeUpdate(" DELETE FROM employee WHERE eid ='"+id+"' or employee_name ='"+id+"'");
             JOptionPane.showMessageDialog(null,"Data Deleted");
@@ -438,7 +441,7 @@ public class employee extends javax.swing.JPanel {
         String name = c_search_tb1.getText();
         try{
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             dt.setRowCount(0);
 
             ResultSet rs = s.executeQuery(" SELECT * FROM employee WHERE eid ='"+name+"' or employee_name LIKE '%"+name+"%'");

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package point.of.sale.system;
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -27,11 +28,12 @@ import javax.swing.table.DefaultTableModel;
  * @author jbhav
  */
 public class product extends javax.swing.JPanel {
-
+    private final Statement s;
     String cat_id;
     
     
-    public product() {
+    public product(Statement s)throws SQLException {
+        this.s = s;
         initComponents();
         tb_load();
         supplier_load();
@@ -43,7 +45,7 @@ public class product extends javax.swing.JPanel {
     public void comboLoadCategory(){
         try{
             
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery(" SELECT * FROM category");
             Vector v = new Vector();
             while(rs.next()){
@@ -66,7 +68,7 @@ public class product extends javax.swing.JPanel {
             DefaultTableModel dt = (DefaultTableModel)jTable1.getModel();
             dt.setRowCount(0);
             
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery(" SELECT * FROM product");
             
             while (rs.next()){
@@ -107,7 +109,7 @@ public class product extends javax.swing.JPanel {
         
         try{
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             dt.setRowCount(0);
 
             ResultSet rs = s.executeQuery(" SELECT * FROM product WHERE product_name LIKE '%"+name+"%' AND Bar_code LIKE '%"+bcode+"%' AND supplier_name LIKE '%"+supName+"%'");
@@ -143,7 +145,7 @@ public class product extends javax.swing.JPanel {
     public void supplier_load(){
         //all supplier load to com_sup combo box
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM supplier");
             Vector v = new Vector();
 
@@ -166,7 +168,7 @@ public class product extends javax.swing.JPanel {
             DefaultTableModel dt = (DefaultTableModel) jTable2.getModel();
             dt.setRowCount(0);
             
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM category");
             while(rs.next()){
                 Vector v = new Vector();
@@ -404,7 +406,7 @@ public class product extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(p_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -595,44 +597,44 @@ public class product extends javax.swing.JPanel {
                         .addComponent(p_price)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(p_sid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(p_cat, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(com_Cat, 0, 141, Short.MAX_VALUE)
-                            .addComponent(com_sup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                        .addComponent(p_brand, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(14, 14, 14))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(p_qty)
-                                .addComponent(p_unit)
-                                .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(p_sid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(p_cat, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(com_Cat, 0, 141, Short.MAX_VALUE)
+                                    .addComponent(com_sup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(exp_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(mf_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                                .addComponent(p_brand, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
+                        .addGap(8, 8, 8)
                         .addComponent(jButton1)
                         .addGap(50, 50, 50)
                         .addComponent(jButton3)
                         .addGap(55, 55, 55)
                         .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(p_qty)
+                        .addComponent(p_unit)
+                        .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(exp_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mf_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)))
+                .addContainerGap(719, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -685,7 +687,11 @@ public class product extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1)
+                                .addComponent(jButton3)
+                                .addComponent(jButton4)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mf_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -694,12 +700,7 @@ public class product extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(exp_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -837,7 +838,7 @@ public class product extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(t_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -885,7 +886,7 @@ public class product extends javax.swing.JPanel {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // Delete category button
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate("DELETE FROM category WHERE id = '"+cat_id+"'");
             JOptionPane.showMessageDialog(null, "Data Deleteted");
             t_name.setText("");
@@ -900,7 +901,7 @@ public class product extends javax.swing.JPanel {
         // Update category button
         String name = t_name.getText();
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate("UPDATE category SET Name = '"+name+"' WHERE id = '"+cat_id+"'");
             JOptionPane.showMessageDialog(null, "Data Updated");
             t_name.setText("");
@@ -918,7 +919,7 @@ public class product extends javax.swing.JPanel {
         String name  = t_name.getText();
 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             s.executeUpdate("INSERT INTO category (Name) VALUES ('"+name+"')");
             JOptionPane.showMessageDialog(null, "Data Saved");
             t_name.setText("");
@@ -943,7 +944,7 @@ public class product extends javax.swing.JPanel {
         try{
             DefaultTableModel dt = (DefaultTableModel) jTable2.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM category WHERE name LIKE  '%"+search+"%'");
             while(rs.next()){
                 Vector v = new Vector();
@@ -986,7 +987,7 @@ public class product extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM  supplier WHERE supplier_name = '"+com_sup.getSelectedItem().toString()+"'");
             if(rs.next())
             {
@@ -1018,7 +1019,7 @@ public class product extends javax.swing.JPanel {
 
         String id = p_search.getText();
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate("DELETE FROM product WHERE pid ='"+id+"'");
 
             JOptionPane.showMessageDialog(null, "Data Deleted");
@@ -1061,7 +1062,7 @@ public class product extends javax.swing.JPanel {
         String sname = com_sup.getSelectedItem().toString();
 
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate("UPDATE product SET product_name='"+name+"',Bar_code ='"+bcode+"', price ='"+sprice+"', Sell_price ='"+price+"', quantity ='"+qty+"', sid ='"+sid+"', supplier_name ='"+sname+"',default_unit= '"+unit+"', default_type= '"+type+"', mf_date =  '"+mfdate+"',  exp_date = '"+exdate+"',  category = '"+category+"',  brand_name = '"+brand+"',  description ='"+descript+"' WHERE pid='"+id+"'");
 
             JOptionPane.showMessageDialog(null, "Data Updated");
@@ -1105,12 +1106,12 @@ public class product extends javax.swing.JPanel {
 
         // `pid`, `product_name`, `Bar_code`, `price`, `quantity`, `Sid`
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             s.executeUpdate("INSERT INTO product (product_name, Bar_code, price, Sell_price, quantity, Sid, supplier_name, default_unit, default_type, mf_date, exp_date, category, brand_name, description) "
                 + "VALUES ('"+name+"','"+bcode+"','"+price+"','"+sprice+"','"+qty+"','"+sid+"', '"+sname+"', '"+unit+"', '"+type+"', '"+mfdate+"', '"+exdate+"', '"+category+"', '"+brand+"', '"+descript+"')");
             JOptionPane.showMessageDialog(null,"Data Saved");
 
-        }catch(Exception e){
+        }catch(HeadlessException | SQLException e){
             System.out.println(e);
         }
 

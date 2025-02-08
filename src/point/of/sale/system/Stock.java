@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package point.of.sale.system;
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -16,17 +17,20 @@ import static point.of.sale.system.sales.pro_qty;
  * @author jbhav
  */
 public class Stock extends javax.swing.JPanel {
+    private final Statement s;
 
-    Connection con = null;
+    //Connection con = null;
     PreparedStatement pst =null;
     ResultSet rs = null;
     String id = "";
     
     
     
-    public Stock() {
+    public Stock(Statement s) {
+        this.s = s;
+
         initComponents();
-        con = db.mycon();
+        //con = db.mycon();
         tbload();
         call();
         
@@ -40,7 +44,7 @@ public class Stock extends javax.swing.JPanel {
             dt.setRowCount(0);
             
             
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM product");
             
             while (rs.next()){
@@ -72,8 +76,8 @@ public class Stock extends javax.swing.JPanel {
         try{
             
             String sql = "SELECT * from product where product_name LIKE '%"+pname+"%' AND supplier_name LIKE '%"+supp+"%' AND Bar_code LIKE '%"+bcode+"%'" ;
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
+            //pst = con.prepareStatement(sql);
+            rs = s.executeQuery(sql);
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
 
@@ -94,7 +98,7 @@ public class Stock extends javax.swing.JPanel {
             }
 
             
-        }catch(Exception e){
+        }catch(SQLException e){
             
         }
       call();
@@ -461,7 +465,7 @@ public class Stock extends javax.swing.JPanel {
         String name = txt_barcode.getText();
                 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM product WHERE Bar_code ='"+name+"'");
             
@@ -483,7 +487,7 @@ public class Stock extends javax.swing.JPanel {
         String name = txt_pna1.getText();
                 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM product WHERE product_name ='"+name+"'");
             
@@ -517,12 +521,12 @@ public class Stock extends javax.swing.JPanel {
         Double up_qty =  newqty + oldQty;
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             s.executeUpdate("UPDATE product SET quantity ='"+up_qty+"' WHERE pid='"+id+"'");
             
             JOptionPane.showMessageDialog(null, "Data Updated");
             
-        }catch(Exception e){
+        }catch(HeadlessException | SQLException e){
             System.out.println(e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -27,10 +27,13 @@ import static point.of.sale.system.sales.pro_qty;
 public class Grn extends javax.swing.JPanel {
     
     public static String SelectProductName = null;
+    private final Statement s;
+
     
 
     
-    public Grn() {
+    public Grn(Statement s) {
+        this.s = s;
         initComponents();
         data_load();
         cart_total();
@@ -43,7 +46,7 @@ public class Grn extends javax.swing.JPanel {
         //load Supplier
         
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM supplier");
             
             Vector v = new Vector();
@@ -64,7 +67,7 @@ public class Grn extends javax.swing.JPanel {
          //load Product
         
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM product");
             
             Vector v = new Vector();
@@ -83,7 +86,7 @@ public class Grn extends javax.swing.JPanel {
         }
         //load latest invoice number
         try{
-            Statement s = db.mycon().createStatement();
+           // Statement s = db.mycon().createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM extra WHERE exid = 1");
             
             if(rs.next()){
@@ -638,7 +641,7 @@ public class Grn extends javax.swing.JPanel {
                 String Sup_id = I_Sid.getText();
 
                 //insert in GRN DB
-                Statement s = db.mycon().createStatement();
+               // Statement s = db.mycon().createStatement();
                 s.executeUpdate("INSERT INTO grn (GRN_NO,Sid,Barcode,Itm_Name,Qty,Cost_Price,Sell_Price,Exp_Date,Sub_Total,Discount,Net_Total) VALUES ('"+inid+"','"+Sup_id+"','"+bar_code+"' ,'"+P_name+"','"+qty+"','"+cost_price+"' ,'"+sell_price+"','"+exp_date+"', '"+Sub_tot+"','"+Disc+"','"+Net_tot+"') ");
                 s.executeUpdate("UPDATE product SET quantity  = '"+stock+"', price = '"+cost_price+"', Sell_price = '"+sell_price+"'  where Bar_code = '"+bar_code+"'");
 
@@ -694,7 +697,7 @@ public class Grn extends javax.swing.JPanel {
         // TODO add your handling code here:
         String bcode = txt_bar.getText();
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
 
             ResultSet rs = s.executeQuery("SELECT product_name, price, Sell_price, quantity FROM product WHERE Bar_code ='"+bcode+"'");
 
@@ -764,7 +767,7 @@ public class Grn extends javax.swing.JPanel {
         String name = com_pro.getSelectedItem().toString();
 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
 
             ResultSet rs = s.executeQuery("SELECT Bar_code, price, Sell_price, quantity, product_name FROM product WHERE product_name ='"+name+"'");
 
@@ -786,7 +789,7 @@ public class Grn extends javax.swing.JPanel {
         String name = com_sup.getSelectedItem().toString();
 
         try{
-            Statement s = db.mycon().createStatement();
+            //Statement s = db.mycon().createStatement();
 
             ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE supplier_name ='"+name+"'");
 

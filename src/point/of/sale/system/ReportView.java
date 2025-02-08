@@ -44,8 +44,8 @@ public class ReportView extends JFrame
 
         
         //db connection
-        db d = new db();
-        Connection con = d.mycon();
+        
+        Connection con = null;
                 
                 
 //        

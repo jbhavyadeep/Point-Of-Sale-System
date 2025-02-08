@@ -24,7 +24,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author jbhav
  */
 public class reports extends javax.swing.JPanel {
-    Connection con = null;
+    //Connection con = db.mycon();
     /**
      * Creates new form reports
      */
@@ -126,9 +126,10 @@ public class reports extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // view all report
+        Connection con = db.mycon();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
           //File f = new File("src\\resources\\sales_report.jrxml");
            InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
         if (inputStream == null) {
@@ -137,9 +138,12 @@ public class reports extends javax.swing.JPanel {
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
           JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
+          db.closeConnection(con);
           }
+        
+        
  
-catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
+catch(  IllegalArgumentException | JRException ex)
 {
      System.out.println(ex);
 }
@@ -150,10 +154,10 @@ catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRExc
         // view button ireport para
       //  HashMap para = new HashMap();
        // para.put("invo_para", para_inid.getText());
-        
+        Connection con = db.mycon();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
           //File f = new File("src\\resources\\GRN_report.jrxml");
            InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report.jrxml");
         if (inputStream == null) {
@@ -162,9 +166,11 @@ catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRExc
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
           JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
+          db.closeConnection(con);
+
           }
  
-catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
+catch(  IllegalArgumentException | JRException ex)
 {
     System.out.println(ex);
 }
@@ -174,9 +180,10 @@ catch(  ClassNotFoundException | IllegalArgumentException | SQLException | JRExc
         // TODO add your handling code here:
 //       ReportView r = new ReportView("src\\resources\\Customer_report.jasper");
 //        r.setVisible(true);
+        Connection con = db.mycon();
     try{
-Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
 
           //File f = new File("src\\resources\\Customer_report.jrxml");
           InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
@@ -186,9 +193,11 @@ Class.forName("com.mysql.cj.jdbc.Driver");
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
           JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
           JasperViewer.viewReport(jp,false);
+          db.closeConnection(con);
+
           }
  
-catch(ClassNotFoundException | IllegalArgumentException | SQLException | JRException ex)
+catch(IllegalArgumentException | JRException ex)
 {
  System.out.println(ex);}
     

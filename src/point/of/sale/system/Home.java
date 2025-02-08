@@ -1,15 +1,21 @@
 package point.of.sale.system;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author jbhav
  */
 public class Home extends javax.swing.JFrame {
-
+    public Statement s;
     JpanelLoader jpload = new JpanelLoader();
           
-    public Home() {
+    public Home() throws SQLException {
         initComponents();
+        this.s = db.mycon().createStatement();
         
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         load();     
@@ -17,7 +23,7 @@ public class Home extends javax.swing.JFrame {
     }
    
     public void load(){
-        sales sl = new sales();
+        sales sl = new sales(s);
         jpload.jPanelLoader(panel_load, sl);
     }
     
@@ -272,22 +278,34 @@ public class Home extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // Customer Load
-        customer cus = new customer();
-        jpload.jPanelLoader(panel_load, cus);
+        customer cus;
+        try {
+            cus = new customer(s);
+            jpload.jPanelLoader(panel_load, cus);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
          
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // Sales
         
-        sales sl = new sales();
+        sales sl = new sales(s);
         jpload.jPanelLoader(panel_load, sl);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
         // Product Load
-        product pro = new product();
-        jpload.jPanelLoader(panel_load, pro);
+        product pro;
+        try {
+            pro = new product(s);
+            jpload.jPanelLoader(panel_load, pro);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
@@ -296,7 +314,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
         // Invoice load
-        invoice inv = new invoice();
+        invoice inv = new invoice(s);
         jpload.jPanelLoader((panel_load), inv);
     }//GEN-LAST:event_jToggleButton7ActionPerformed
 
@@ -308,26 +326,32 @@ public class Home extends javax.swing.JFrame {
 
     private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
         // employee
-        employee emp = new employee();
+        employee emp = new employee(s);
         jpload.jPanelLoader(panel_load, emp);
     }//GEN-LAST:event_jToggleButton9ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // supplier
-        supplier sup = new supplier();
-        jpload.jPanelLoader(panel_load, sup);
+        supplier sup;
+        try {
+            sup = new supplier(s);
+            jpload.jPanelLoader(panel_load, sup);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton10ActionPerformed
         // GRN
-        Grn grn = new Grn();
+        Grn grn = new Grn(s);
         jpload.jPanelLoader(panel_load, grn);
     }//GEN-LAST:event_jToggleButton10ActionPerformed
 
     private void stkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stkActionPerformed
         // Sotck
-        Stock stk = new Stock();
-        jpload.jPanelLoader(panel_load, stk);
+        Stock stock = new Stock(s);
+        jpload.jPanelLoader(panel_load, stock);
     }//GEN-LAST:event_stkActionPerformed
 
     /**
@@ -359,8 +383,13 @@ public class Home extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Home().setVisible(true);
+                try {
+                    new Home().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

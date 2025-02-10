@@ -465,6 +465,7 @@ public class sales extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         cal_chn = new javax.swing.JLabel();
 
+        jPanel2.setBackground(new java.awt.Color(167, 178, 194));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -494,7 +495,7 @@ public class sales extends javax.swing.JPanel {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(211, 216, 222));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -695,6 +696,7 @@ public class sales extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel5.setBackground(new java.awt.Color(167, 178, 194));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setBackground(new java.awt.Color(0, 11, 126));
@@ -778,6 +780,7 @@ public class sales extends javax.swing.JPanel {
                 .addGap(15, 15, 15))
         );
 
+        jPanel6.setBackground(new java.awt.Color(167, 178, 194));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         paid_amt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -974,7 +977,7 @@ public class sales extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -988,9 +991,7 @@ public class sales extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

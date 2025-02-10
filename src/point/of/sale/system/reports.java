@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -137,7 +138,8 @@ public class reports extends javax.swing.JPanel {
         }
           JasperReport jr = JasperCompileManager.compileReport(inputStream);
           JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
-          JasperViewer.viewReport(jp,false);
+          JasperPrintManager.printReport(jp, true);
+          //JasperViewer.viewReport(jp,false);
           db.closeConnection(con);
           }
         

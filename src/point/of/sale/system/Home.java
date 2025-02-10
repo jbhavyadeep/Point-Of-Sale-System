@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public class Home extends javax.swing.JFrame {
     public Statement s;
     JpanelLoader jpload = new JpanelLoader();
+    public int flag = 1;
           
     public Home() throws SQLException {
         initComponents();
@@ -43,11 +44,13 @@ public class Home extends javax.swing.JFrame {
         jToggleButton3 = new javax.swing.JToggleButton();
         jToggleButton10 = new javax.swing.JToggleButton();
         stk = new javax.swing.JToggleButton();
+        barcode_gen = new javax.swing.JToggleButton();
         panel_load = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        user_change = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -65,6 +68,7 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(167, 178, 194));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         home_btn_grp.add(jToggleButton1);
@@ -149,6 +153,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_btn_grp.add(barcode_gen);
+        barcode_gen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        barcode_gen.setText("Barcode ");
+        barcode_gen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barcode_genActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,6 +169,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(barcode_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stk, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,51 +202,76 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(stk)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton9)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(barcode_gen)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        panel_load.setBackground(new java.awt.Color(167, 178, 194));
         panel_load.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout panel_loadLayout = new javax.swing.GroupLayout(panel_load);
         panel_load.setLayout(panel_loadLayout);
         panel_loadLayout.setHorizontalGroup(
             panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panel_loadLayout.setVerticalGroup(
             panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jPanel3.setBackground(new java.awt.Color(90, 106, 130));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/banner logo1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(284, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(311, 311, 311))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
+        user_change.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        user_change.setText("User");
+        user_change.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                user_changeStateChanged(evt);
+            }
+        });
+        user_change.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_changeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(user_change);
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("View");
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("language");
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Theme");
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -300,7 +339,7 @@ public class Home extends javax.swing.JFrame {
         // Product Load
         product pro;
         try {
-            pro = new product(s);
+            pro = new product(s,flag);
             jpload.jPanelLoader(panel_load, pro);
 
         } catch (SQLException ex) {
@@ -354,6 +393,34 @@ public class Home extends javax.swing.JFrame {
         jpload.jPanelLoader(panel_load, stock);
     }//GEN-LAST:event_stkActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void user_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_changeActionPerformed
+        // TODO add your handling code here:
+        if(flag == 1){
+            user_change.setText("User 1");
+            
+            flag = 2;
+        }
+        else{
+            user_change.setText("User");
+            flag = 1;
+        }
+    }//GEN-LAST:event_user_changeActionPerformed
+
+    private void user_changeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_user_changeStateChanged
+        // TODO add your handling code here:
+        //user_change.setText("User 1");
+    }//GEN-LAST:event_user_changeStateChanged
+
+    private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
+        // TODO add your handling code here:
+        Barcode bar = new Barcode();
+        jpload.jPanelLoader(panel_load, bar);
+    }//GEN-LAST:event_barcode_genActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -395,12 +462,13 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton barcode_gen;
     private javax.swing.ButtonGroup home_btn_grp;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -418,5 +486,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton9;
     private javax.swing.JPanel panel_load;
     private javax.swing.JToggleButton stk;
+    private javax.swing.JMenuItem user_change;
     // End of variables declaration//GEN-END:variables
 }

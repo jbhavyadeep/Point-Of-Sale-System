@@ -25,7 +25,7 @@ public class Home extends javax.swing.JFrame {
    
     public void load(){
         sales sl = new sales(s);
-        jpload.jPanelLoader(panel_load, sl);
+        jpload.jPanelLoader(jScrollPane1, sl);
     }
     
     @SuppressWarnings("unchecked")
@@ -45,9 +45,9 @@ public class Home extends javax.swing.JFrame {
         jToggleButton10 = new javax.swing.JToggleButton();
         stk = new javax.swing.JToggleButton();
         barcode_gen = new javax.swing.JToggleButton();
-        panel_load = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         user_change = new javax.swing.JMenuItem();
@@ -55,8 +55,6 @@ public class Home extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
 
         jToggleButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jToggleButton6.setText("Customers");
@@ -67,31 +65,37 @@ public class Home extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(0, 0));
 
         jPanel1.setBackground(new java.awt.Color(167, 178, 194));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jToggleButton1.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton1);
         jToggleButton1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        jToggleButton1.setText("ગ્રાહક");
+        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setText("Customer");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
             }
         });
 
+        jToggleButton4.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton4);
         jToggleButton4.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        jToggleButton4.setText("ઉત્પાદન");
+        jToggleButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton4.setText("Product");
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton4ActionPerformed(evt);
             }
         });
 
+        jToggleButton2.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton2);
         jToggleButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sales_menu.png"))); // NOI18N
+        jToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton2.setText("Sales");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +103,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton7.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton7);
         jToggleButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton7.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton7.setText("Invoice");
         jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,8 +114,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton8.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton8);
         jToggleButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton8.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton8.setText("Reports");
         jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,8 +125,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton9.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton9);
         jToggleButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton9.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton9.setText("Employee");
         jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,17 +136,21 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton3.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton3);
         jToggleButton3.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        jToggleButton3.setText("સપ્લાયર");
+        jToggleButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton3.setText("Supplier");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
             }
         });
 
+        jToggleButton10.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(jToggleButton10);
         jToggleButton10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jToggleButton10.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton10.setText("GRN");
         jToggleButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,8 +158,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        stk.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(stk);
         stk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        stk.setForeground(new java.awt.Color(255, 255, 255));
         stk.setText("Stock");
         stk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,8 +169,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        barcode_gen.setBackground(new java.awt.Color(94, 59, 66));
         home_btn_grp.add(barcode_gen);
         barcode_gen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        barcode_gen.setForeground(new java.awt.Color(255, 255, 255));
         barcode_gen.setText("Barcode ");
         barcode_gen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,21 +222,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jToggleButton9)
                 .addGap(18, 18, 18)
                 .addComponent(barcode_gen)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        panel_load.setBackground(new java.awt.Color(167, 178, 194));
-        panel_load.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout panel_loadLayout = new javax.swing.GroupLayout(panel_load);
-        panel_load.setLayout(panel_loadLayout);
-        panel_loadLayout.setHorizontalGroup(
-            panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panel_loadLayout.setVerticalGroup(
-            panel_loadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(90, 106, 130));
@@ -231,14 +235,16 @@ public class Home extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(284, Short.MAX_VALUE)
+                .addContainerGap(292, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(311, 311, 311))
+                .addGap(303, 303, 303))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
+
+        jScrollPane1.setBackground(new java.awt.Color(167, 178, 194));
 
         jMenu1.setText("File");
 
@@ -276,13 +282,6 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Report");
-
-        jMenuItem5.setText("jMenuItem5");
-        jMenu3.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,22 +293,20 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(panel_load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
 
         pack();
@@ -320,7 +317,7 @@ public class Home extends javax.swing.JFrame {
         customer cus;
         try {
             cus = new customer(s);
-            jpload.jPanelLoader(panel_load, cus);
+            jpload.jPanelLoader(jScrollPane1, cus);
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -332,7 +329,7 @@ public class Home extends javax.swing.JFrame {
         // Sales
         
         sales sl = new sales(s);
-        jpload.jPanelLoader(panel_load, sl);
+        jpload.jPanelLoader(jScrollPane1, sl);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
@@ -340,7 +337,7 @@ public class Home extends javax.swing.JFrame {
         product pro;
         try {
             pro = new product(s,flag);
-            jpload.jPanelLoader(panel_load, pro);
+            jpload.jPanelLoader(jScrollPane1, pro);
 
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,19 +351,19 @@ public class Home extends javax.swing.JFrame {
     private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
         // Invoice load
         invoice inv = new invoice(s);
-        jpload.jPanelLoader((panel_load), inv);
+        jpload.jPanelLoader((jScrollPane1), inv);
     }//GEN-LAST:event_jToggleButton7ActionPerformed
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
         // load report
         reports rpt = new reports();
-        jpload.jPanelLoader(panel_load, rpt);
+        jpload.jPanelLoader(jScrollPane1, rpt);
     }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
         // employee
         employee emp = new employee(s);
-        jpload.jPanelLoader(panel_load, emp);
+        jpload.jPanelLoader(jScrollPane1, emp);
     }//GEN-LAST:event_jToggleButton9ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
@@ -374,7 +371,7 @@ public class Home extends javax.swing.JFrame {
         supplier sup;
         try {
             sup = new supplier(s);
-            jpload.jPanelLoader(panel_load, sup);
+            jpload.jPanelLoader(jScrollPane1, sup);
 
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -384,13 +381,13 @@ public class Home extends javax.swing.JFrame {
     private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton10ActionPerformed
         // GRN
         Grn grn = new Grn(s);
-        jpload.jPanelLoader(panel_load, grn);
+        jpload.jPanelLoader(jScrollPane1, grn);
     }//GEN-LAST:event_jToggleButton10ActionPerformed
 
     private void stkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stkActionPerformed
         // Sotck
         Stock stock = new Stock(s);
-        jpload.jPanelLoader(panel_load, stock);
+        jpload.jPanelLoader(jScrollPane1, stock);
     }//GEN-LAST:event_stkActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -418,7 +415,7 @@ public class Home extends javax.swing.JFrame {
     private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
         // TODO add your handling code here:
         Barcode bar = new Barcode();
-        jpload.jPanelLoader(panel_load, bar);
+        jpload.jPanelLoader(jScrollPane1, bar);
     }//GEN-LAST:event_barcode_genActionPerformed
 
     /**
@@ -467,14 +464,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton10;
     private javax.swing.JToggleButton jToggleButton2;
@@ -484,7 +480,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton7;
     private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JToggleButton jToggleButton9;
-    private javax.swing.JPanel panel_load;
     private javax.swing.JToggleButton stk;
     private javax.swing.JMenuItem user_change;
     // End of variables declaration//GEN-END:variables

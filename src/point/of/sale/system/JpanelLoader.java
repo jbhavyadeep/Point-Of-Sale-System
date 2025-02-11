@@ -6,6 +6,7 @@ package point.of.sale.system;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -13,15 +14,18 @@ import javax.swing.JPanel;
  */
 public class JpanelLoader {
 
-    public void jPanelLoader(JPanel Main, JPanel setPanel) {
-        Main.removeAll();
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(Main);
-        Main.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(setPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(setPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE));
+    public void jPanelLoader(JScrollPane Main, JPanel setPanel) {
+//        Main.removeAll();
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(Main);
+//        Main.setLayout(layout);
+//        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                .addComponent(setPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE));
+//        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                .addComponent(setPanel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE));
+//        Main.revalidate();
+//        Main.repaint();
+        Main.setViewportView(setPanel);
         Main.revalidate();
         Main.repaint();
 

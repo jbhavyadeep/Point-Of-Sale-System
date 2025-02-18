@@ -13,7 +13,7 @@ public class Home extends javax.swing.JFrame {
     public Statement s;
     JpanelLoader jpload = new JpanelLoader();
     public int flag = 1;
-          
+                
     public Home() throws SQLException {
         initComponents();
         this.s = db.mycon().createStatement();
@@ -22,8 +22,8 @@ public class Home extends javax.swing.JFrame {
         load();     
         
     }
-   
-    public void load(){
+         
+    public void load(){  
         sales sl = new sales(s);
         jpload.jPanelLoader(jScrollPane1, sl);
     }
@@ -245,6 +245,7 @@ public class Home extends javax.swing.JFrame {
         );
 
         jScrollPane1.setBackground(new java.awt.Color(167, 178, 194));
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jMenu1.setText("File");
 
@@ -305,7 +306,7 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 

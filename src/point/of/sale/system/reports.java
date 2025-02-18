@@ -10,7 +10,14 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -19,12 +26,12 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
-
 /**
  *
  * @author jbhav
  */
 public class reports extends javax.swing.JPanel {
+
     //Connection con = db.mycon();
     /**
      * Creates new form reports
@@ -47,6 +54,10 @@ public class reports extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        from_date = new com.toedter.calendar.JDateChooser();
+        to_date = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(167, 178, 194));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -75,28 +86,58 @@ public class reports extends javax.swing.JPanel {
             }
         });
 
+        from_date.setDateFormatString("dd-MM-yyyy");
+
+        to_date.setDateFormatString("dd-MM-yyyy");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("From:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("To:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(from_date, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
                 .addComponent(jButton2)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(from_date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(37, 37, 37)
+                .addGap(45, 45, 45)
                 .addComponent(jButton3)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -104,14 +145,16 @@ public class reports extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 452, Short.MAX_VALUE))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 219, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -129,54 +172,66 @@ public class reports extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // view all report
         Connection con = db.mycon();
-        try{
+        try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
-          //File f = new File("src\\resources\\sales_report.jrxml");
-           InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
-        if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
+            //File f = new File("src\\resources\\sales_report.jrxml");
+            InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
+            if (inputStream == null) {
+                throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
+            }
+            JasperReport jr = JasperCompileManager.compileReport(inputStream);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+            JasperPrintManager.printReport(jp, true);
+            //JasperViewer.viewReport(jp,false);
+            db.closeConnection(con);
+        } catch (IllegalArgumentException | JRException ex) {
+            System.out.println(ex);
         }
-          JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
-          JasperPrintManager.printReport(jp, true);
-          //JasperViewer.viewReport(jp,false);
-          db.closeConnection(con);
-          }
-        
-        
- 
-catch(  IllegalArgumentException | JRException ex)
-{
-     System.out.println(ex);
-}
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // view button ireport para
-      //  HashMap para = new HashMap();
-       // para.put("invo_para", para_inid.getText());
-        Connection con = db.mycon();
-        try{
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
-          //File f = new File("src\\resources\\GRN_report.jrxml");
-           InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report.jrxml");
-        if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in resources: GRN_report.jrxml");
-        }
-          JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
-          JasperViewer.viewReport(jp,false);
-          db.closeConnection(con);
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy"); // Adjust format based on your input
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Get dates from UI components
+        Date fromDate = from_date.getDate(); // Assuming this is JDateChooser
+        Date toDate = to_date.getDate();
 
-          }
- 
-catch(  IllegalArgumentException | JRException ex)
-{
-    System.out.println(ex);
-}
+        // Ensure that dates are not null
+        if (fromDate != null && toDate != null) {
+            // Convert java.util.Date to java.sql.Date
+            Timestamp sqlFromDate = new java.sql.Timestamp(fromDate.getTime());
+            Timestamp sqlToDate = new java.sql.Timestamp(toDate.getTime());
+            
+
+            // Create parameter map for JasperReports
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("Date_From", sdf.format(sqlFromDate));
+            parameters.put("Date_To", sdf.format(sqlToDate));
+            System.err.println("Date_From: " + sdf.format(sqlFromDate));
+            System.err.println("Date_To: " + sdf.format(sqlToDate));
+            Connection con = db.mycon(); // Your database connection method
+
+            try {
+                InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report_2.jrxml");
+                if (inputStream == null) {
+                    throw new IllegalArgumentException("File not found in resources: GRN_report_2.jrxml");
+                }
+
+                JasperReport jr = JasperCompileManager.compileReport(inputStream);
+                JasperPrint jp = JasperFillManager.fillReport(jr,parameters, con);
+                JasperViewer.viewReport(jp, false);
+                db.closeConnection(con);
+
+            } catch (IllegalArgumentException | JRException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("Error: One of the date pickers is null!");
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -184,34 +239,36 @@ catch(  IllegalArgumentException | JRException ex)
 //       ReportView r = new ReportView("src\\resources\\Customer_report.jasper");
 //        r.setVisible(true);
         Connection con = db.mycon();
-    try{
+        try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
 
-          //File f = new File("src\\resources\\Customer_report.jrxml");
-          InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
-        if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
-        }
-          JasperReport jr = JasperCompileManager.compileReport(inputStream);
-          JasperPrint jp = JasperFillManager.fillReport(jr,null,con);
-          JasperViewer.viewReport(jp,false);
-          db.closeConnection(con);
+            //File f = new File("src\\resources\\Customer_report.jrxml");
+            InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
+            if (inputStream == null) {
+                throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+            }
+            JasperReport jr = JasperCompileManager.compileReport(inputStream);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+            JasperViewer.viewReport(jp, false);
+            db.closeConnection(con);
 
-          }
- 
-catch(IllegalArgumentException | JRException ex)
-{
- System.out.println(ex);}
-    
+        } catch (IllegalArgumentException | JRException ex) {
+            System.out.println(ex);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser from_date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private com.toedter.calendar.JDateChooser to_date;
     // End of variables declaration//GEN-END:variables
 }

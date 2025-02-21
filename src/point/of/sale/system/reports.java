@@ -182,8 +182,8 @@ public class reports extends javax.swing.JPanel {
             }
             JasperReport jr = JasperCompileManager.compileReport(inputStream);
             JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
-            JasperPrintManager.printReport(jp, true);
-            //JasperViewer.viewReport(jp,false);
+            //JasperPrintManager.printReport(jp, true);
+            JasperViewer.viewReport(jp,false);
             db.closeConnection(con);
         } catch (IllegalArgumentException | JRException ex) {
             System.out.println(ex);

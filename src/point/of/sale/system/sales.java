@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.Date;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -54,9 +56,9 @@ public class sales extends javax.swing.JPanel {
         AutoCompleteDecorator.decorate(com_cus);
         AutoCompleteDecorator.decorate(com_pro);
         Customer_balance_check();
-
     }
 
+    
     public void data_load() {
         //load customer
 
@@ -1130,7 +1132,7 @@ public class sales extends javax.swing.JPanel {
             String blnc = bln_due.getText();
             String paid = paid_amt.getText();
             //paid check
-
+            Timestamp pur_Date = new java.sql.Timestamp(new Date().getTime());
             Double tot = Double.valueOf(bill_tot.getText());
             Double pid = Double.valueOf(paid_amt.getText());
             //String Status ="none";
@@ -1148,7 +1150,7 @@ public class sales extends javax.swing.JPanel {
 //               }
 
             //Statement ss = db.mycon().createStatement();
-            s.executeUpdate("INSERT INTO sales (INID, Cid, customer_name, Total_Qty, Total_Bill, paid_amt) VALUES ('" + inv_id + "', '" + cus_id + "', '" + cname + "', '" + totqty + "', '" + tot_bil + "', '" + paid + "')");
+            s.executeUpdate("INSERT INTO sales (INID, Cid, customer_name, Total_Qty, Total_Bill, paid_amt, sales_date) VALUES ('" + inv_id + "', '" + cus_id + "', '" + cname + "', '" + totqty + "', '" + tot_bil + "', '" + paid + "','"+pur_Date+"')");
             s.executeUpdate("UPDATE customer SET Tp_Number = '" + blnc + "' WHERE cid = '" + cus_id + "'");
 
         } catch (NumberFormatException | SQLException e) {

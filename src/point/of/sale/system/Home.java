@@ -2,8 +2,15 @@ package point.of.sale.system;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+
 
 /**
  *
@@ -19,10 +26,37 @@ public class Home extends javax.swing.JFrame {
         this.s = db.mycon().createStatement();
         
         this.setExtendedState(Home.MAXIMIZED_BOTH);
-        load();     
-        
+        load();
+        new JFXPanel(); 
+        initClock();
     }
-         
+
+
+public void initClock() {
+    Platform.runLater(() -> { // Ensure JavaFX is initialized
+        Thread thread = new Thread(() -> {
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); // Added AM/PM
+            SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a"); // 
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    Thread.sleep(1000); // Sleep for 1 second
+                    String datenow = sdf1.format(new Date());
+                    String timenow = sdf2.format(new Date());
+
+                    Platform.runLater(() -> curr_date.setText(datenow));
+                    Platform.runLater(() -> curr_time.setText(timenow));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); // Preserve the interrupt status
+                    break; // Exit loop if interrupted
+                }
+            }
+        });
+
+        thread.setDaemon(true); // Ensures the thread stops when the application closes
+        thread.start();
+    });
+}
+   
     public void load(){  
         sales sl = new sales(s);
         jpload.jPanelLoader(jScrollPane1, sl);
@@ -47,6 +81,10 @@ public class Home extends javax.swing.JFrame {
         barcode_gen = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        curr_date = new javax.swing.JLabel();
+        curr_time = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -230,18 +268,56 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/banner logo1.png"))); // NOI18N
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Date: ");
+
+        curr_date.setBackground(new java.awt.Color(255, 255, 255));
+        curr_date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        curr_date.setForeground(new java.awt.Color(255, 255, 255));
+
+        curr_time.setBackground(new java.awt.Color(255, 255, 255));
+        curr_time.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        curr_time.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Time: ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(157, Short.MAX_VALUE)
+                .addContainerGap(177, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(303, 303, 303))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(curr_date, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(curr_time, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(curr_date))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(curr_time))
+                .addContainerGap())
         );
 
         jScrollPane1.setBackground(new java.awt.Color(167, 178, 194));
@@ -461,8 +537,12 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton barcode_gen;
+    private javax.swing.JLabel curr_date;
+    private javax.swing.JLabel curr_time;
     private javax.swing.ButtonGroup home_btn_grp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

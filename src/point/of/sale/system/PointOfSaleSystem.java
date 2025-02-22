@@ -6,6 +6,7 @@ package point.of.sale.system;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,6 +31,12 @@ public class PointOfSaleSystem {
             }
         }
         return false;
+    }
+    private static boolean isTableExists(Connection conn, String tableName) throws SQLException {
+        DatabaseMetaData metaData = conn.getMetaData();
+        try (ResultSet rs = metaData.getTables(null, null, tableName, null)) {
+            return rs.next(); // Returns true if table exists
+        }
     }
 
     public static void updateSalesTable() {
@@ -81,10 +88,34 @@ public class PointOfSaleSystem {
                 stmt.execute(sql);
 
                 System.out.println("Table updated successfully: 'sales_date' column added.");
-            } else {
+            }
+            if (!isTableExists(conn, "authenticate")) {
+                // Create the authenticate table if it doesn't exist
+            String createTableSQL = "CREATE TABLE authenticate (" +
+                    "uid INTEGER PRIMARY KEY, "+
+                    "user_name VARCHAR(10) NOT NULL, " +
+                    "password VARCHAR(10) NOT NULL)";
+            stmt.execute(createTableSQL);
+            
+
+            String insertSQL = "INSERT INTO authenticate (user_name, password) VALUES (?, ?),(?, ?)";
+                    try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+                        pstmt.setString(1, "kamlesh");
+                        pstmt.setString(2, "223084");
+                        pstmt.setString(3, "admin");
+                        pstmt.setString(4, "admin123");
+                        
+                        pstmt.executeUpdate();
+                        System.out.println("Default admin user added to 'authenticate' table.");
+                    }
+            System.out.println("Table 'authenticate' created successfully.");
+
+            }
+            else {
                 System.out.println("Column 'sales_date' already exists. No update needed.");
                 System.out.println("Exp_Date column is already of type DATE. No changes needed.");
-                
+                System.out.println("Table 'authenticate' already exists.");
+
             }
 
         } catch (SQLException e) {

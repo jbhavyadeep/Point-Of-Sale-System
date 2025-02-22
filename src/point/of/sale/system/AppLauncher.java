@@ -31,12 +31,9 @@ public class AppLauncher {
 
                 // Launch the application
                 java.awt.EventQueue.invokeLater(() -> {
-                    try {
-                        PointOfSaleSystem.updateSalesTable();
-                        new Home().setVisible(true);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    PointOfSaleSystem.updateSalesTable();
+                    new Authenticate().setVisible(true);
+                    //new Home().setVisible(true);
                 });
 
             } catch (Exception e) {

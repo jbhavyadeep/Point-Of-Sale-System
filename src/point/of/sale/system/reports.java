@@ -31,6 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author jbhav
  */
 public class reports extends javax.swing.JPanel {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //Connection con = db.mycon();
     /**
@@ -38,6 +39,7 @@ public class reports extends javax.swing.JPanel {
      */
     public reports() {
         initComponents();
+        
     }
 
     /**
@@ -103,7 +105,7 @@ public class reports extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(35, 35, 35)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(from_date, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -112,32 +114,30 @@ public class reports extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
+                        .addGap(139, 139, 139)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(from_date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
+                .addComponent(jButton2)
+                .addGap(46, 46, 46)
                 .addComponent(jButton1)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addContainerGap())
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -147,14 +147,14 @@ public class reports extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -171,7 +171,23 @@ public class reports extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // view all report
-        Connection con = db.mycon();
+        Date fromDate = from_date.getDate(); // Assuming this is JDateChooser
+        Date toDate = to_date.getDate();
+        // Ensure that dates are not null
+        if (fromDate != null && toDate != null) {
+            // Convert java.util.Date to java.sql.Date
+            Timestamp sqlFromDate = new java.sql.Timestamp(fromDate.getTime());
+            Timestamp sqlToDate = new java.sql.Timestamp(toDate.getTime());
+            
+
+            // Create parameter map for JasperReports
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("Date_From", sdf.format(sqlFromDate));
+            parameters.put("Date_To", sdf.format(sqlToDate));
+            System.err.println("Date_From: " + sdf.format(sqlFromDate));
+            System.err.println("Date_To: " + sdf.format(sqlToDate));
+            Connection con = db.mycon(); // Your database connection method
+        
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
@@ -181,24 +197,25 @@ public class reports extends javax.swing.JPanel {
                 throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
             }
             JasperReport jr = JasperCompileManager.compileReport(inputStream);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
             //JasperPrintManager.printReport(jp, true);
             JasperViewer.viewReport(jp,false);
             db.closeConnection(con);
         } catch (IllegalArgumentException | JRException ex) {
             System.out.println(ex);
         }
+        } else {
+            System.out.println("Error: One of the date pickers is null!");
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // view button ireport para
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy"); // Adjust format based on your input
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       
         // Get dates from UI components
         Date fromDate = from_date.getDate(); // Assuming this is JDateChooser
         Date toDate = to_date.getDate();
-
         // Ensure that dates are not null
         if (fromDate != null && toDate != null) {
             // Convert java.util.Date to java.sql.Date

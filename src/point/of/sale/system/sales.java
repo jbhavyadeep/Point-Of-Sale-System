@@ -1216,10 +1216,10 @@ public class sales extends javax.swing.JPanel {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        if (!com_pro.isPopupVisible()) {
-            p_qty.setText("");
-            p_qty.requestFocus();
-        }
+//        if (!com_pro.isPopupVisible()) {
+//            p_qty.setText("");
+//            p_qty.requestFocus();
+//        }
 
 
     }//GEN-LAST:event_com_proActionPerformed
@@ -1312,7 +1312,7 @@ public class sales extends javax.swing.JPanel {
                 pro_qty = rs.getString("quantity");
                 l_stqty.setText(pro_qty);
                 Select_product_name = rs.getString("product_name");
-                //com_pro.setSelectedItem(rs.getString("product_name"));
+                com_pro.setSelectedItem(Select_product_name);
             }
 
         } catch (SQLException e) {

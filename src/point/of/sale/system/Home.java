@@ -19,16 +19,25 @@ import javafx.embed.swing.JFXPanel;
 public class Home extends javax.swing.JFrame {
     public Statement s;
     JpanelLoader jpload = new JpanelLoader();
-    public int flag = 1;
+    public int flag;
                 
-    public Home() throws SQLException {
+    public Home(int flag) throws SQLException {
         initComponents();
         this.s = db.mycon().createStatement();
-        
+        this.flag = flag;
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         load();
         new JFXPanel(); 
         initClock();
+        if(flag == 1){
+            user_change.setText("User 1");
+            
+            //flag = 2;
+        }
+        else {
+            user_change.setText("Admin");
+           // flag = 1;
+        }
     }
 
 
@@ -462,7 +471,7 @@ public void initClock() {
     }//GEN-LAST:event_jToggleButton10ActionPerformed
 
     private void stkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stkActionPerformed
-        // Sotck
+        // Stock
         Stock stock = new Stock(s);
         jpload.jPanelLoader(jScrollPane1, stock);
     }//GEN-LAST:event_stkActionPerformed
@@ -473,15 +482,8 @@ public void initClock() {
 
     private void user_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_changeActionPerformed
         // TODO add your handling code here:
-        if(flag == 1){
-            user_change.setText("User 1");
-            
-            flag = 2;
-        }
-        else{
-            user_change.setText("User");
-            flag = 1;
-        }
+       
+        
     }//GEN-LAST:event_user_changeActionPerformed
 
     private void user_changeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_user_changeStateChanged
@@ -498,42 +500,42 @@ public void initClock() {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Home().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    new Home().setVisible(true);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton barcode_gen;

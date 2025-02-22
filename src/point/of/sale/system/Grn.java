@@ -742,14 +742,15 @@ public class Grn extends javax.swing.JPanel {
         try {
             //Statement s = db.mycon().createStatement();
 
-            ResultSet rs = s.executeQuery("SELECT product_name, price, Sell_price, quantity FROM product WHERE Bar_code ='" + bcode + "'");
+            ResultSet rs = s.executeQuery("SELECT product_name, price, Sell_price, quantity, supplier_name FROM product WHERE Bar_code ='" + bcode + "'");
 
             if (rs.next()) {
                 txt_cost.setText(rs.getString("price"));
                 txt_sell.setText(rs.getString("Sell_price"));
                 SelectProductName = rs.getString("product_name");
                 p_qty.setText(rs.getString("quantity"));
-
+                com_sup.setSelectedItem(rs.getString("supplier_name"));
+                com_pro.setSelectedItem(SelectProductName);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -818,7 +819,7 @@ public class Grn extends javax.swing.JPanel {
         try {
             //Statement s = db.mycon().createStatement();
 
-            ResultSet rs = s.executeQuery("SELECT Bar_code, price, Sell_price, quantity, product_name FROM product WHERE product_name ='" + name + "'");
+            ResultSet rs = s.executeQuery("SELECT Bar_code, price, Sell_price, quantity, product_name,Sid  FROM product WHERE product_name ='" + name + "'");
 
             if (rs.next()) {
                 txt_cost.setText(rs.getString("price"));
@@ -826,7 +827,7 @@ public class Grn extends javax.swing.JPanel {
                 txt_bar.setText(rs.getString("Bar_code"));
                 p_qty.setText(rs.getString("quantity"));
                 SelectProductName = rs.getString("product_name");
-
+                
             }
         } catch (SQLException e) {
             System.out.println(e);

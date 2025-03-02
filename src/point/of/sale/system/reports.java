@@ -31,6 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author jbhav
  */
 public class reports extends javax.swing.JPanel {
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //Connection con = db.mycon();
@@ -39,7 +40,7 @@ public class reports extends javax.swing.JPanel {
      */
     public reports() {
         initComponents();
-        
+
     }
 
     /**
@@ -178,7 +179,6 @@ public class reports extends javax.swing.JPanel {
             // Convert java.util.Date to java.sql.Date
             Timestamp sqlFromDate = new java.sql.Timestamp(fromDate.getTime());
             Timestamp sqlToDate = new java.sql.Timestamp(toDate.getTime());
-            
 
             // Create parameter map for JasperReports
             Map<String, Object> parameters = new HashMap<>();
@@ -187,23 +187,23 @@ public class reports extends javax.swing.JPanel {
             System.err.println("Date_From: " + sdf.format(sqlFromDate));
             System.err.println("Date_To: " + sdf.format(sqlToDate));
             Connection con = db.mycon(); // Your database connection method
-        
-        try {
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
-            //File f = new File("src\\resources\\sales_report.jrxml");
-            InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
+
+            try {
+                //Class.forName("com.mysql.cj.jdbc.Driver");
+                //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+                //File f = new File("src\\resources\\sales_report.jrxml");
+                InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
+                if (inputStream == null) {
+                    throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
+                }
+                JasperReport jr = JasperCompileManager.compileReport(inputStream);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
+                //JasperPrintManager.printReport(jp, true);
+                JasperViewer.viewReport(jp, false);
+                db.closeConnection(con);
+            } catch (IllegalArgumentException | JRException ex) {
+                System.out.println(ex);
             }
-            JasperReport jr = JasperCompileManager.compileReport(inputStream);
-            JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
-            //JasperPrintManager.printReport(jp, true);
-            JasperViewer.viewReport(jp,false);
-            db.closeConnection(con);
-        } catch (IllegalArgumentException | JRException ex) {
-            System.out.println(ex);
-        }
         } else {
             System.out.println("Error: One of the date pickers is null!");
         }
@@ -212,7 +212,7 @@ public class reports extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // view button ireport para
-       
+
         // Get dates from UI components
         Date fromDate = from_date.getDate(); // Assuming this is JDateChooser
         Date toDate = to_date.getDate();
@@ -221,7 +221,6 @@ public class reports extends javax.swing.JPanel {
             // Convert java.util.Date to java.sql.Date
             Timestamp sqlFromDate = new java.sql.Timestamp(fromDate.getTime());
             Timestamp sqlToDate = new java.sql.Timestamp(toDate.getTime());
-            
 
             // Create parameter map for JasperReports
             Map<String, Object> parameters = new HashMap<>();
@@ -238,7 +237,7 @@ public class reports extends javax.swing.JPanel {
                 }
 
                 JasperReport jr = JasperCompileManager.compileReport(inputStream);
-                JasperPrint jp = JasperFillManager.fillReport(jr,parameters, con);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
                 JasperViewer.viewReport(jp, false);
                 db.closeConnection(con);
 
@@ -255,25 +254,39 @@ public class reports extends javax.swing.JPanel {
         // TODO add your handling code here:
 //       ReportView r = new ReportView("src\\resources\\Customer_report.jasper");
 //        r.setVisible(true);
-        Connection con = db.mycon();
-        try {
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
+// Get dates from UI components
+        Date fromDate = from_date.getDate(); // Assuming this is JDateChooser
+        Date toDate = to_date.getDate();
+        // Ensure that dates are not null
+        if (fromDate != null && toDate != null) {
+            // Convert java.util.Date to java.sql.Date
+            Timestamp sqlFromDate = new java.sql.Timestamp(fromDate.getTime());
+            Timestamp sqlToDate = new java.sql.Timestamp(toDate.getTime());
 
-            //File f = new File("src\\resources\\Customer_report.jrxml");
-            InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+            // Create parameter map for JasperReports
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("Date_From", sdf.format(sqlFromDate));
+            parameters.put("Date_To", sdf.format(sqlToDate));
+            System.err.println("Date_From: " + sdf.format(sqlFromDate));
+            System.err.println("Date_To: " + sdf.format(sqlToDate));
+            Connection con = db.mycon();
+            try {
+
+                InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
+                if (inputStream == null) {
+                    throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
+                }
+                JasperReport jr = JasperCompileManager.compileReport(inputStream);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
+                JasperViewer.viewReport(jp, false);
+                db.closeConnection(con);
+
+            } catch (IllegalArgumentException | JRException ex) {
+                System.out.println(ex);
             }
-            JasperReport jr = JasperCompileManager.compileReport(inputStream);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
-            JasperViewer.viewReport(jp, false);
-            db.closeConnection(con);
-
-        } catch (IllegalArgumentException | JRException ex) {
-            System.out.println(ex);
+        } else {
+            System.out.println("Error: One of the date pickers is null!");
         }
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

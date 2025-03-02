@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Customer_report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYCON.jrdax"/>
-	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
-	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<queryString language="SQL">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYCON.jrdax"/>
+    <style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+    <style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+    <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+    <style name="Detail" fontName="Arial" fontSize="12"/>
+    <parameter name="Date_From" class="java.lang.String"/>
+    <parameter name="Date_To" class="java.lang.String"/>
+    <queryString language="SQL">
 		<![CDATA[SELECT
 c.cid,
 c.customer_name,
@@ -16,6 +18,7 @@ c.Mobile,
 s.INID,
 s.Total_Bill,
 s.paid_amt,
+s.sales_date,
 ca.product_name,
 ca.Bar_code,
 ca.qty,
@@ -30,273 +33,293 @@ c.cid = s.Cid
 JOIN
 cart ca
 on
-s.INID = ca.INID]]>
-	</queryString>
-	<field name="cid" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cid"/>
-		<property name="com.jaspersoft.studio.field.label" value="cid"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
-	</field>
-	<field name="customer_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="customer_name"/>
-		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
-	</field>
-	<field name="Tp_Number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Tp_Number"/>
-		<property name="com.jaspersoft.studio.field.label" value="Tp_Number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
-	</field>
-	<field name="Mobile" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Mobile"/>
-		<property name="com.jaspersoft.studio.field.label" value="Mobile"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
-	</field>
-	<field name="INID" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="INID"/>
-		<property name="com.jaspersoft.studio.field.label" value="INID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
-	</field>
-	<field name="Total_Bill" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Total_Bill"/>
-		<property name="com.jaspersoft.studio.field.label" value="Total_Bill"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
-	</field>
-	<field name="paid_amt" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="paid_amt"/>
-		<property name="com.jaspersoft.studio.field.label" value="paid_amt"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
-	</field>
-	<field name="product_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="product_name"/>
-		<property name="com.jaspersoft.studio.field.label" value="product_name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
-	</field>
-	<field name="Bar_code" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Bar_code"/>
-		<property name="com.jaspersoft.studio.field.label" value="Bar_code"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
-	</field>
-	<field name="qty" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="qty"/>
-		<property name="com.jaspersoft.studio.field.label" value="qty"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
-	</field>
-	<field name="Unit_price" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Unit_price"/>
-		<property name="com.jaspersoft.studio.field.label" value="Unit_price"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
-	</field>
-	<field name="Total_Price" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Total_Price"/>
-		<property name="com.jaspersoft.studio.field.label" value="Total_Price"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
-	</field>
-	<group name="Group1">
-		<groupExpression><![CDATA[$F{cid}]]></groupExpression>
-		<groupHeader>
-			<band height="42">
-				<rectangle>
-					<reportElement mode="Opaque" x="0" y="13" width="550" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
-				</rectangle>
-				<staticText>
-					<reportElement style="Column header" x="104" y="18" width="136" height="20">
-					</reportElement>
-					<textElement>
-						<font size="16"/>
-					</textElement>
-					<text><![CDATA[customer_name :]]></text>
-				</staticText>
-				<textField>
-					<reportElement style="Detail" x="240" y="21" width="55" height="15">
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="SubTitle" x="0" y="14" width="90" height="24" forecolor="#006600"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{cid}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement style="Column header" x="430" y="18" width="55" height="15">
-					</reportElement>
-					<text><![CDATA[Balance :]]></text>
-				</staticText>
-				<textField>
-					<reportElement style="Detail" x="490" y="18" width="55" height="15">
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{Tp_Number}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="6"/>
-			<band height="34">
-				<textField>
-					<reportElement style="Detail" x="480" y="5" width="55" height="15">
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{Total_Bill}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement style="Column header" x="420" y="5" width="55" height="15">
-					</reportElement>
-					<text><![CDATA[Total_Bill]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="Column header" x="263" y="5" width="67" height="15">
-					</reportElement>
-					<text><![CDATA[paid_amt :]]></text>
-				</staticText>
-				<textField>
-					<reportElement style="Detail" x="330" y="5" width="55" height="15">
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{paid_amt}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupFooter>
-	</group>
-	<group name="Group2">
-		<groupExpression><![CDATA[$F{INID}]]></groupExpression>
-		<groupHeader>
-			<band height="41">
-				<rectangle>
-					<reportElement mode="Opaque" x="0" y="13" width="555" height="24" forecolor="#CCCCCC" backcolor="#D9D7D7"/>
-				</rectangle>
-				<staticText>
-					<reportElement x="0" y="13" width="138" height="25"/>
-					<textElement>
-						<font size="16"/>
-					</textElement>
-					<text><![CDATA[Invoice Number :]]></text>
-				</staticText>
-				<textField>
-					<reportElement style="SubTitle" x="130" y="15" width="400" height="20"/>
-					<textElement>
-						<font size="16" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{INID}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-	</group>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="70" splitType="Stretch">
+s.INID = ca.INID
+WHERE
+    substr(s.sales_date, 1, 19) >= $P{Date_From}
+AND substr(s.sales_date, 1, 19) <= $P{Date_To}]]>
+    </queryString>
+    <field name="cid" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="cid"/>
+        <property name="com.jaspersoft.studio.field.label" value="cid"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+    </field>
+    <field name="customer_name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="customer_name"/>
+        <property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+    </field>
+    <field name="Tp_Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Tp_Number"/>
+        <property name="com.jaspersoft.studio.field.label" value="Tp_Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+    </field>
+    <field name="Mobile" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Mobile"/>
+        <property name="com.jaspersoft.studio.field.label" value="Mobile"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+    </field>
+    <field name="INID" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="INID"/>
+        <property name="com.jaspersoft.studio.field.label" value="INID"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+    </field>
+    <field name="Total_Bill" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Total_Bill"/>
+        <property name="com.jaspersoft.studio.field.label" value="Total_Bill"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+    </field>
+    <field name="paid_amt" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="paid_amt"/>
+        <property name="com.jaspersoft.studio.field.label" value="paid_amt"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+    </field>
+    <field name="product_name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="product_name"/>
+        <property name="com.jaspersoft.studio.field.label" value="product_name"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
+    </field>
+    <field name="Bar_code" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Bar_code"/>
+        <property name="com.jaspersoft.studio.field.label" value="Bar_code"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
+    </field>
+    <field name="qty" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="qty"/>
+        <property name="com.jaspersoft.studio.field.label" value="qty"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
+    </field>
+    <field name="Unit_price" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Unit_price"/>
+        <property name="com.jaspersoft.studio.field.label" value="Unit_price"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
+    </field>
+    <field name="Total_Price" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="Total_Price"/>
+        <property name="com.jaspersoft.studio.field.label" value="Total_Price"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="cart"/>
+    </field>
+    <field name="sales_date" class="java.sql.Date">
+        <property name="com.jaspersoft.studio.field.name" value="sales_date"/>
+        <property name="com.jaspersoft.studio.field.label" value="sales_date"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+    </field>
+    <group name="Group1">
+        <groupExpression><![CDATA[$F{cid}]]></groupExpression>
+        <groupHeader>
+            <band height="42">
+                <rectangle>
+                    <reportElement mode="Opaque" x="0" y="13" width="550" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+                </rectangle>
+                <staticText>
+                    <reportElement style="Column header" x="30" y="18" width="136" height="20">
+                    </reportElement>
+                    <textElement>
+                        <font size="16"/>
+                    </textElement>
+                    <text><![CDATA[Name :]]></text>
+                </staticText>
+                <textField>
+                    <reportElement style="Detail" x="90" y="21" width="55" height="15">
+                    </reportElement>
+                    <textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement style="SubTitle" x="0" y="14" width="90" height="24" forecolor="#006600"/>
+                    <textElement>
+                        <font isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{cid}]]></textFieldExpression>
+                </textField>
+               
+                <staticText>
+                    <reportElement style="Column header" x="430" y="18" width="55" height="15">
+                    </reportElement>
+                    <text><![CDATA[Balance :]]></text>
+                </staticText>
+                <textField>
+                    <reportElement style="Detail" x="490" y="18" width="55" height="15">
+                    </reportElement>
+                    <textFieldExpression><![CDATA[$F{Tp_Number}]]></textFieldExpression>
+                </textField>
+                
+                <staticText>
+                    <reportElement style="Column header" x="250" y="19" width="70" height="15">
+                    </reportElement>
+                    <text><![CDATA[MobileNO :]]></text>
+                </staticText>
+                <textField>
+                    <reportElement style="Detail" x="320" y="19" width="70" height="15">
+                    </reportElement>
+                    <textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+		
+    </group>
+    <group name="Group2">
+        <groupExpression><![CDATA[$F{INID}]]></groupExpression>
+        <groupHeader>
+            <band height="41">
+                <rectangle>
+                    <reportElement mode="Opaque" x="0" y="13" width="555" height="24" forecolor="#CCCCCC" backcolor="#D9D7D7"/>
+                </rectangle>
+                <staticText>
+                    <reportElement x="0" y="13" width="138" height="25"/>
+                    <textElement>
+                        <font size="16"/>
+                    </textElement>
+                    <text><![CDATA[Invoice Number :]]></text>
+                </staticText>
+                <textField>
+                    <reportElement style="SubTitle" x="130" y="15" width="400" height="20"/>
+                    <textElement>
+                        <font size="16" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{INID}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement style="SubTitle" x="400" y="15" width="400" height="20"/>
+                    <textElement>
+                        <font size="14" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{sales_date}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="6"/>
+            <band height="34">
+                <textField>
+                    <reportElement style="Detail" x="480" y="5" width="55" height="15">
+                    </reportElement>
+                    <textFieldExpression><![CDATA[$F{Total_Bill}]]></textFieldExpression>
+                </textField>
+                <staticText>
+                    <reportElement style="Column header" x="420" y="5" width="55" height="15">
+                    </reportElement>
+                    <text><![CDATA[Total_Bill]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Column header" x="263" y="5" width="67" height="15">
+                    </reportElement>
+                    <text><![CDATA[paid_amt :]]></text>
+                </staticText>
+                <textField>
+                    <reportElement style="Detail" x="330" y="5" width="55" height="15">
+                    </reportElement>
+                    <textFieldExpression><![CDATA[$F{paid_amt}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupFooter>
+    </group>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="70" splitType="Stretch">
 			
-			<staticText>
-				<reportElement style="Title" x="0" y="13" width="263" height="33"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[PATEL PROVISION STORES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="200" height="22"/>
-				<text><![CDATA[CUSTOMER REPORT]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="36" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement style="Column header" x="110" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[Mobile]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="275" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[product_name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="330" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[Bar_code]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="385" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[qty]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="440" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[Unit_price]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="495" y="19" width="55" height="15">
-				</reportElement>
-				<text><![CDATA[Total_Price]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="16" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-			<textField>
-				<reportElement style="Detail" x="110" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="275" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="330" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{Bar_code}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="385" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="440" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{Unit_price}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="495" y="0" width="55" height="15">
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{Total_Price}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="20" splitType="Stretch">
+            <staticText>
+                <reportElement style="Title" x="0" y="13" width="263" height="33"/>
+                <textElement verticalAlignment="Middle"/>
+                <text><![CDATA[PATEL PROVISION STORES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="SubTitle" x="100" y="46" width="200" height="22"/>
+                <text><![CDATA[CUSTOMER REPORT]]></text>
+            </staticText>
+        </band>
+    </title>
+    <pageHeader>
+        <band splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="36" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
 			
-		</band>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
+            <staticText>
+                <reportElement style="Column header" x="9" y="19" width="91" height="15">
+                </reportElement>
+                <text><![CDATA[Product Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="130" y="21" width="55" height="15">
+                </reportElement>
+                <text><![CDATA[Bar Code]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="255" y="21" width="55" height="15">
+                </reportElement>
+                <text><![CDATA[Quantity]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="362" y="19" width="63" height="15">
+                </reportElement>
+                <text><![CDATA[Unit Price]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="477" y="19" width="80" height="15">
+                </reportElement>
+                <text><![CDATA[Total Price]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="16" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+            
+            <textField>
+                <reportElement style="Detail" x="9" y="0" width="80" height="15">
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Detail" x="120" y="0" width="80" height="15">
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Bar_code}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Detail" x="255" y="0" width="55" height="15">
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Detail" x="370" y="0" width="55" height="15">
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Unit_price}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Detail" x="495" y="0" width="55" height="15">
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Total_Price}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="20" splitType="Stretch">
+			
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
 </jasperReport>

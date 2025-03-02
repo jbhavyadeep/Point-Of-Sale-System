@@ -28,7 +28,7 @@ public class AppLauncher {
                         lockFile.delete();
                     }
                 }));
-
+                
                 // Launch the application
                 java.awt.EventQueue.invokeLater(() -> {
                     PointOfSaleSystem.updateSalesTable();

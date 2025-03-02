@@ -1,4 +1,4 @@
-/*
+/**
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
@@ -32,6 +32,8 @@ public class PointOfSaleSystem {
         }
         return false;
     }
+    
+    
     private static boolean isTableExists(Connection conn, String tableName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
         try (ResultSet rs = metaData.getTables(null, null, tableName, null)) {
@@ -109,7 +111,19 @@ public class PointOfSaleSystem {
                         System.out.println("Default admin user added to 'authenticate' table.");
                     }
             System.out.println("Table 'authenticate' created successfully.");
+           
+ 
+            }
+             if(!columnExists(conn, "cart", "is_returned") && !columnExists(conn, "cart", "return_date")){
+                String ALTERTableSQL1 ="ALTER TABLE cart ADD column is_returned BOOLEAN NOT NULL DEFAULT (FALSE)";
+                String ALTERTableSQL2 ="ALTER TABLE cart ADD column return_date";
+                stmt.execute(ALTERTableSQL1);
+                stmt.execute(ALTERTableSQL2);
+                System.out.println("is_returned and return_date COLUMN ARE ADDED TO the table cart");
+           
 
+                
+                
             }
             else {
                 System.out.println("Column 'sales_date' already exists. No update needed.");

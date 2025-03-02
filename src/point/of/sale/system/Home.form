@@ -17,7 +17,7 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="app_exit">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
@@ -36,6 +36,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+E"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
@@ -66,6 +69,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="POS Patel Provsion Store"/>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[0, 0]"/>
     </Property>
@@ -144,7 +148,7 @@
                       <Component id="jToggleButton8" alignment="0" max="32767" attributes="0"/>
                       <Component id="jToggleButton7" alignment="0" max="32767" attributes="0"/>
                       <Component id="stk" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jToggleButton9" alignment="0" pref="154" max="32767" attributes="0"/>
+                      <Component id="jToggleButton9" alignment="0" max="32767" attributes="0"/>
                       <Component id="barcode_gen" alignment="0" max="32767" attributes="0"/>
                       <Component id="jToggleButton2" max="32767" attributes="0"/>
                   </Group>
@@ -255,7 +259,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Invoice"/>
+            <Property name="text" type="java.lang.String" value="Returns &amp; Invoice"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton7ActionPerformed"/>
@@ -275,7 +279,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reports"/>
+            <Property name="text" type="java.lang.String" value="Reports "/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton8ActionPerformed"/>

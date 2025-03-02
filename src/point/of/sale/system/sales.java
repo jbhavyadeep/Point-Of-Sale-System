@@ -7,8 +7,11 @@ package point.of.sale.system;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
@@ -20,8 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteComboBoxEditor;
@@ -47,18 +53,64 @@ public class sales extends javax.swing.JPanel {
     public Double paid = 0.0;
     public Double recieved = 0.0;
     public Double change = 0.0;
+    private javax.swing.JTextArea bill;
+
+
 
     public sales(Statement s) {
         this.s = s;
+       
         initComponents();
+        bill = new javax.swing.JTextArea();
+        bill.setColumns(20);
+        bill.setRows(5);
         data_load();
-
         AutoCompleteDecorator.decorate(com_cus);
         AutoCompleteDecorator.decorate(com_pro);
         Customer_balance_check();
     }
 
-    
+    public void bill_print(){
+        String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+
+        try {
+            bill.setText("                         Patel Provision Store \n");
+            bill.setText(bill.getText() + "Opp. Ram Mandir,Garbi Chowk, Dhoraji, 360410\n");
+            bill.setText(bill.getText() + "      +02824-223084, 9375980160 \n");
+            bill.setText(bill.getText() + "Date: "+timeStamp+ "\n");
+            
+            bill.setText(bill.getText() + "-------------------------------------------------------------------\n");
+            bill.setText(bill.getText() + "Item\t\t\tPrice\n");
+            bill.setText(bill.getText() + "-------------------------------------------------------------------\n");
+            
+            DefaultTableModel df = (DefaultTableModel) jTable1.getModel();
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                
+                String name = df.getValueAt(i, 1).toString();
+                String qt = df.getValueAt(i, 3).toString();
+                String prc = df.getValueAt(i, 5).toString();
+                
+                bill.setText(bill.getText() + name+"("+qt+")"+"\t\t\t"+prc+"\n");
+                
+            }
+            bill.setText(bill.getText() + "----------------------------------------------------------------\n");
+            
+            bill.setText(bill.getText() + "Total Qty : "+tot_qty.getText()+"\t");
+            bill.setText(bill.getText() + "SubTotal : "+bill_tot.getText()+"\n");
+            
+            bill.setText(bill.getText() + "====================================\n");
+            bill.setText(bill.getText() +"                     Thanks For Your Business...!"+"\n");
+            bill.setText(bill.getText() + "----------------------------------------------------------------\n");
+            bill.setText(bill.getText() +"                     Please Visit Again"+"\n");
+            
+            
+            bill.print();
+            
+        } catch (PrinterException ex) {
+            System.out.print(ex);
+        }
+ 
+ }
     public void data_load() {
         //load customer
 
@@ -170,18 +222,18 @@ public class sales extends javax.swing.JPanel {
             Double discount = Double.valueOf(disc_per.getText());
             Double due = 0.0;
 
-            if (Settle_amt <= 0) {
+            //if (Settle_amt <= 0) {
                 due = paid + Settle_amt - (discount * tot / 100.00);
                 System.out.println("x");
 
-            } //       else if(Cus_balance>=0){
+          //  } //       else if(Cus_balance>=0){
             //          due =  paid + Cus_balance - Total_amt;
             //        }
-            else {
-                due = paid - Settle_amt - (discount * tot / 100.00);
-                System.out.println("y");
-
-            }
+//            else {
+//                due = Settle_amt - paid - (discount * tot / 100.00);
+//                System.out.println("y");
+//
+//            }
             /// else if(Cus_balance>0){
             //       
             //           due = paid-(tot-(discount*tot/100.00));
@@ -210,7 +262,7 @@ public class sales extends javax.swing.JPanel {
             change = 0.0;
             System.out.println("d");
         } else {
-            paid = Total_amt;
+            paid = recieved;
             change = 0.0;
             System.out.println("c");
 
@@ -386,7 +438,7 @@ public class sales extends javax.swing.JPanel {
 
     public void settleAmt() {
         Total_amt = Double.valueOf(bill_tot.getText());
-
+        
         Settle_amt = Cus_balance - Total_amt;
         cus_settleamt.setText(Settle_amt.toString());
     }
@@ -473,7 +525,7 @@ public class sales extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(inid))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(211, 216, 222));
@@ -540,11 +592,11 @@ public class sales extends javax.swing.JPanel {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(com_cus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(p_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {com_cus, jLabel11, jLabel3, p_barcode});
@@ -722,13 +774,13 @@ public class sales extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -756,7 +808,7 @@ public class sales extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -831,17 +883,17 @@ public class sales extends javax.swing.JPanel {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(18, 27, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(18, 27, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 22, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(167, 178, 194));
@@ -1282,6 +1334,7 @@ public class sales extends javax.swing.JPanel {
     private void paid_amtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paid_amtKeyReleased
 
         tot();
+        cal_chn.setText("0.0");
 
 
     }//GEN-LAST:event_paid_amtKeyReleased
@@ -1355,11 +1408,8 @@ public class sales extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        try {
-            jTable1.print();
-        } catch (Exception e) {
-
-        }
+       
+        bill_print();
 
         changecal chn = new changecal(new javax.swing.JFrame(), true);
         chn.setLocationRelativeTo(null);

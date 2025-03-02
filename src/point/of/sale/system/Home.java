@@ -1,76 +1,83 @@
 package point.of.sale.system;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.PrintJob;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author jbhav
  */
 public class Home extends javax.swing.JFrame {
+
     public Statement s;
     JpanelLoader jpload = new JpanelLoader();
     public int flag;
-                
+    
+
     public Home(int flag) throws SQLException {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/payment.png"));
+        this.setIconImage(icon.getImage());
+        
         this.s = db.mycon().createStatement();
         this.flag = flag;
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         load();
-        new JFXPanel(); 
+        new JFXPanel();
         initClock();
-        if(flag == 1){
-            user_change.setText("User 1");
-            
+        if (flag == 1) {
+            user_change.setText("Kamlesh");
+
             //flag = 2;
-        }
-        else {
+        } else {
             user_change.setText("Admin");
-           // flag = 1;
+            // flag = 1;
         }
     }
 
+    public void initClock() {
+        Platform.runLater(() -> { // Ensure JavaFX is initialized
+            Thread thread = new Thread(() -> {
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); // Added AM/PM
+                SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a"); // 
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        Thread.sleep(1000); // Sleep for 1 second
+                        String datenow = sdf1.format(new Date());
+                        String timenow = sdf2.format(new Date());
 
-public void initClock() {
-    Platform.runLater(() -> { // Ensure JavaFX is initialized
-        Thread thread = new Thread(() -> {
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); // Added AM/PM
-            SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a"); // 
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    Thread.sleep(1000); // Sleep for 1 second
-                    String datenow = sdf1.format(new Date());
-                    String timenow = sdf2.format(new Date());
-
-                    Platform.runLater(() -> curr_date.setText(datenow));
-                    Platform.runLater(() -> curr_time.setText(timenow));
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt(); // Preserve the interrupt status
-                    break; // Exit loop if interrupted
+                        Platform.runLater(() -> curr_date.setText(datenow));
+                        Platform.runLater(() -> curr_time.setText(timenow));
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt(); // Preserve the interrupt status
+                        break; // Exit loop if interrupted
+                    }
                 }
-            }
-        });
+            });
 
-        thread.setDaemon(true); // Ensures the thread stops when the application closes
-        thread.start();
-    });
-}
-   
-    public void load(){  
+            thread.setDaemon(true); // Ensures the thread stops when the application closes
+            thread.start();
+        });
+    }
+
+    public void load() {
         sales sl = new sales(s);
         jpload.jPanelLoader(jScrollPane1, sl);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,7 +103,7 @@ public void initClock() {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        app_exit = new javax.swing.JMenu();
         user_change = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -112,6 +119,7 @@ public void initClock() {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("POS Patel Provsion Store");
         setSize(new java.awt.Dimension(0, 0));
 
         jPanel1.setBackground(new java.awt.Color(167, 178, 194));
@@ -154,7 +162,7 @@ public void initClock() {
         home_btn_grp.add(jToggleButton7);
         jToggleButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jToggleButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton7.setText("Invoice");
+        jToggleButton7.setText("Returns & Invoice");
         jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton7ActionPerformed(evt);
@@ -165,7 +173,7 @@ public void initClock() {
         home_btn_grp.add(jToggleButton8);
         jToggleButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jToggleButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton8.setText("Reports");
+        jToggleButton8.setText("Reports ");
         jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton8ActionPerformed(evt);
@@ -241,7 +249,7 @@ public void initClock() {
                     .addComponent(jToggleButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToggleButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(stk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(jToggleButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(barcode_gen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -332,7 +340,7 @@ public void initClock() {
         jScrollPane1.setBackground(new java.awt.Color(167, 178, 194));
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenu1.setText("File");
+        app_exit.setText("File");
 
         user_change.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         user_change.setText("User");
@@ -346,17 +354,18 @@ public void initClock() {
                 user_changeActionPerformed(evt);
             }
         });
-        jMenu1.add(user_change);
+        app_exit.add(user_change);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setText("Exit");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        app_exit.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(app_exit);
 
         jMenu2.setText("View");
 
@@ -407,13 +416,14 @@ public void initClock() {
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         
+
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // Sales
         
+
         sales sl = new sales(s);
         jpload.jPanelLoader(jScrollPane1, sl);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
@@ -422,7 +432,7 @@ public void initClock() {
         // Product Load
         product pro;
         try {
-            pro = new product(s,flag);
+            pro = new product(s, flag);
             jpload.jPanelLoader(jScrollPane1, pro);
 
         } catch (SQLException ex) {
@@ -478,12 +488,19 @@ public void initClock() {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(
+                this, "Are you sure you want to exit?", "Exit Confirmation",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.exit(0); // Exit the application
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void user_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_changeActionPerformed
         // TODO add your handling code here:
-       
-        
+        new Authenticate().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_user_changeActionPerformed
 
     private void user_changeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_user_changeStateChanged
@@ -493,6 +510,7 @@ public void initClock() {
 
     private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
         // TODO add your handling code here:
+
         Barcode bar = new Barcode();
         jpload.jPanelLoader(jScrollPane1, bar);
     }//GEN-LAST:event_barcode_genActionPerformed
@@ -500,44 +518,45 @@ public void initClock() {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    new Home().setVisible(true);
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new Home(1).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu app_exit;
     private javax.swing.JToggleButton barcode_gen;
     private javax.swing.JLabel curr_date;
     private javax.swing.JLabel curr_time;
@@ -545,7 +564,6 @@ public void initClock() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;

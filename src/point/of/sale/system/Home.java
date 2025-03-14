@@ -31,7 +31,6 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/payment.png"));
         this.setIconImage(icon.getImage());
-        
         this.s = db.mycon().createStatement();
         this.flag = flag;
         this.setExtendedState(Home.MAXIMIZED_BOTH);
@@ -511,7 +510,7 @@ public class Home extends javax.swing.JFrame {
     private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
         // TODO add your handling code here:
 
-        Barcode bar = new Barcode();
+        Barcode bar = new Barcode(s);
         jpload.jPanelLoader(jScrollPane1, bar);
     }//GEN-LAST:event_barcode_genActionPerformed
 

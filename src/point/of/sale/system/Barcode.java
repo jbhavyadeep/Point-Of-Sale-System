@@ -6,6 +6,13 @@ package point.of.sale.system;
 
 import com.barcodelib.barcode.Linear;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -17,10 +24,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Barcode extends javax.swing.JPanel {
 
+    private final Statement s;
+
     /**
      * Creates new form Barcode
+     *
+     * @param s
      */
-    public Barcode() {
+    public Barcode(Statement s) {
+        this.s = s;
         initComponents();
     }
 
@@ -36,6 +48,7 @@ public class Barcode extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         b_data = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        barcode_gen = new javax.swing.JButton();
 
         b_data.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         b_data.setText("0");
@@ -53,13 +66,23 @@ public class Barcode extends javax.swing.JPanel {
             }
         });
 
+        barcode_gen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        barcode_gen.setText("Generate barcode");
+        barcode_gen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barcode_genActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
-                .addComponent(b_data, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(barcode_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_data, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(374, Short.MAX_VALUE))
@@ -67,7 +90,9 @@ public class Barcode extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
+                .addGap(107, 107, 107)
+                .addComponent(barcode_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_data, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -88,59 +113,64 @@ public class Barcode extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Write Barcode
-            try {
-        Linear barcode = new Linear();
-        barcode.setType(Linear.CODE128B);
-        barcode.setData(b_data.getText());
-        barcode.setI(11.0f);
+        String bar_gen = b_data.getText();
+        try {
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData(b_data.getText());
+            barcode.setI(11.0f);
 
-        // Retrieve the user preferences node for this class
-        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+            // Retrieve the user preferences node for this class
+            Preferences prefs = Preferences.userNodeForPackage(this.getClass());
 
-        // Get the last used directory from preferences
-        String lastDir = prefs.get("LAST_USED_DIR", System.getProperty("user.home"));
+            // Get the last used directory from preferences
+            String lastDir = prefs.get("LAST_USED_DIR", System.getProperty("user.home"));
 
-        // Create a file chooser starting at the last used directory
-        JFileChooser fileChooser = new JFileChooser(lastDir);
-        fileChooser.setDialogTitle("Save Barcode");
+            // Create a file chooser starting at the last used directory
+            JFileChooser fileChooser = new JFileChooser(lastDir);
+            fileChooser.setDialogTitle("Save Barcode");
 
-        // Set the default file name
-        String defaultFileName = b_data.getText() + ".png";
-        fileChooser.setSelectedFile(new File(defaultFileName));
+            // Set the default file name
+            String defaultFileName = b_data.getText() + ".png";
+            fileChooser.setSelectedFile(new File(defaultFileName));
 
-        // Set file filter for PNG files
-        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("PNG Images", "png");
-        fileChooser.setFileFilter(pngFilter);
-        fileChooser.setAcceptAllFileFilterUsed(false);
+            // Set file filter for PNG files
+            FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("PNG Images", "png");
+            fileChooser.setFileFilter(pngFilter);
+            fileChooser.setAcceptAllFileFilterUsed(false);
 
-        // Show save dialog
-        int userSelection = fileChooser.showSaveDialog(this);
+            // Show save dialog
+            int userSelection = fileChooser.showSaveDialog(this);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
 
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            String filePath = fileToSave.getAbsolutePath();
+                // Save the directory path to preferences
+                prefs.put("LAST_USED_DIR", fileToSave.getParent());
 
-            // Save the directory path to preferences
-            prefs.put("LAST_USED_DIR", fileToSave.getParent());
+                // Ensure the file has a .png extension
+                if (!filePath.toLowerCase().endsWith(".png")) {
+                    filePath += ".png";
+                }
 
-            // Ensure the file has a .png extension
-            if (!filePath.toLowerCase().endsWith(".png")) {
-                filePath += ".png";
+                // Render barcode to the specified file
+                barcode.renderBarcode(filePath);
+
+                // Inform the user that the barcode was saved successfully
+                JOptionPane.showMessageDialog(this, "Barcode saved successfully to:\n" + filePath);
+                
+                
+            } else {
+                // User canceled the save operation
+                JOptionPane.showMessageDialog(this, "Save operation canceled.");
             }
-
-            // Render barcode to the specified file
-            barcode.renderBarcode(filePath);
-
-            // Inform the user that the barcode was saved successfully
-            JOptionPane.showMessageDialog(this, "Barcode saved successfully to:\n" + filePath);
-        } else {
-            // User canceled the save operation
-            JOptionPane.showMessageDialog(this, "Save operation canceled.");
-        }
-    } catch (Exception e) {
-        // Handle exceptions gracefully
-        JOptionPane.showMessageDialog(this, "An error occurred while saving the barcode:\n" + e.getMessage());
-        
+            s.executeUpdate("INSERT INTO genbarcode (gen_barcode) VALUES ('"+bar_gen+"')");
+            b_data.setText("");
+        } catch (Exception e) {
+            // Handle exceptions gracefully
+            JOptionPane.showMessageDialog(this, "An error occurred while saving the barcode:\n" + e.getMessage());
+            
         
     }//GEN-LAST:event_jButton1ActionPerformed
     }
@@ -148,9 +178,34 @@ public class Barcode extends javax.swing.JPanel {
         // 
     }//GEN-LAST:event_b_dataActionPerformed
 
+    private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
+        // TODO add your handling code here:
+        Random rand = new Random();
+        int max = 1000000000;
+        int min = 100000000;
+        long gen_barcode = rand.nextInt(max - min + 1) + min;
+        String barcode = Long.toString(gen_barcode);
+        
+        System.out.println(gen_barcode);
+        try {
+            ResultSet rs = s.executeQuery("SELECT COUNT(*) FROM product WHERE Bar_code = '" + barcode + "'");
+            ResultSet rs2 = s.executeQuery("SELECT COUNT(*) FROM genbarcode WHERE gen_barcode = '"+ barcode +"'");
+            if (rs.next() && rs.getInt(1) > 0 && rs2.next() && rs2.getInt(1)>0) {
+                System.out.println("Barcode existS.");
+            } else {
+                
+                b_data.setText(barcode);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Barcode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_barcode_genActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField b_data;
+    private javax.swing.JButton barcode_gen;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

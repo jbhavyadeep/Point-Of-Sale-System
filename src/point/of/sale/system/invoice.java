@@ -179,6 +179,7 @@ public class invoice extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        jPanel2.setBackground(new java.awt.Color(211, 216, 222));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -200,7 +201,7 @@ public class invoice extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         confirm_return.setBackground(new java.awt.Color(0, 102, 102));
-        confirm_return.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirm_return.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         confirm_return.setForeground(new java.awt.Color(255, 255, 255));
         confirm_return.setText("Confirm Return ");
         confirm_return.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +277,7 @@ public class invoice extends javax.swing.JPanel {
                         .addGap(50, 50, 50))))
         );
 
+        jPanel3.setBackground(new java.awt.Color(167, 178, 194));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

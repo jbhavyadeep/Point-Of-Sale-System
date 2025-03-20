@@ -815,7 +815,7 @@ public class sales extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(167, 178, 194));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setBackground(new java.awt.Color(0, 11, 126));
+        jButton1.setBackground(new java.awt.Color(0, 92, 237));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(242, 242, 242));
         jButton1.setText("Add to Cart");

@@ -50,6 +50,8 @@ public class Barcode extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         barcode_gen = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(167, 178, 194));
+
         b_data.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         b_data.setText("0");
         b_data.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +60,9 @@ public class Barcode extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Save Barcode");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +70,9 @@ public class Barcode extends javax.swing.JPanel {
             }
         });
 
+        barcode_gen.setBackground(new java.awt.Color(0, 92, 237));
         barcode_gen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        barcode_gen.setForeground(new java.awt.Color(255, 255, 255));
         barcode_gen.setText("Generate barcode");
         barcode_gen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,8 +90,8 @@ public class Barcode extends javax.swing.JPanel {
                     .addComponent(barcode_gen, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_data, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(338, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,8 +101,8 @@ public class Barcode extends javax.swing.JPanel {
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_data, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(293, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

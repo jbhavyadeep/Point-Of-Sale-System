@@ -5,13 +5,20 @@
 package point.of.sale.system;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class AppLauncher {
 
     private static File lockFile;
+    
+    private static FileLock lock;
+    private static FileChannel lockChannel;
 
     public static void main(String[] args) {
 
@@ -44,23 +51,39 @@ public class AppLauncher {
     }
 
     private static boolean isAppAlreadyRunning() {
+        
         try {
-            String userHome = System.getenv("APPDATA");
+            String userHome = System.getProperty("APPDATA");
             lockFile = new File(userHome, ".POS.lock");
-
-            // Try to create the lock file
-            boolean created = lockFile.createNewFile();
-            if (created) {
-                // Lock file created successfully; app is not already running
-                lockFile.deleteOnExit();
-                return false;
-            } else {
-                // Lock file already exists; app is running
+            
+            // Open the file in read-write mode and try to acquire a lock
+            lockChannel = new RandomAccessFile(lockFile, "rw").getChannel();
+            lock = lockChannel.tryLock();
+            
+            if (lock == null) {
+                // Another instance has already locked the file, meaning the app is running
                 return true;
             }
+            lockFile.deleteOnExit();
+
+
+
+            // Add a shutdown hook to release the lock and clean up properly
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    if (lock != null) lock.release();
+                    if (lockChannel != null) lockChannel.close();
+                    if (lockFile.exists()) lockFile.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+            return false; // App is not already running
+       } catch (FileNotFoundException e) {
+            System.err.println("Lock file could not be created: " + e.getMessage());
+            return true;
         } catch (IOException e) {
-            // Unable to create lock file; assume app is already running
-            e.printStackTrace();
+            System.err.println("Error while trying to check application instance: " + e.getMessage());
             return true;
         }
     }

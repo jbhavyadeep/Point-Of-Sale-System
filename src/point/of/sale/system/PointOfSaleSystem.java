@@ -114,6 +114,13 @@ public class PointOfSaleSystem {
            
  
             }
+            if (!isTableExists(conn, "genbarcode")){
+                String createTableGenBarcode = "CREATE TABLE genbarcode (gen_barcode varchar(20) NOT NULL)";
+                stmt.execute(createTableGenBarcode);
+                System.out.println("Table 'authenticate' created successfully.");
+
+            }
+            
              if(!columnExists(conn, "cart", "is_returned") && !columnExists(conn, "cart", "return_date")){
                 String ALTERTableSQL1 ="ALTER TABLE cart ADD column is_returned BOOLEAN NOT NULL DEFAULT (FALSE)";
                 String ALTERTableSQL2 ="ALTER TABLE cart ADD column return_date";
@@ -129,6 +136,7 @@ public class PointOfSaleSystem {
                 System.out.println("Column 'sales_date' already exists. No update needed.");
                 System.out.println("Exp_Date column is already of type DATE. No changes needed.");
                 System.out.println("Table 'authenticate' already exists.");
+                System.out.println("Table 'genbarcode' already exists");
 
             }
 

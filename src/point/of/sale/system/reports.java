@@ -200,7 +200,7 @@ public class reports extends javax.swing.JPanel {
                 //Class.forName("com.mysql.cj.jdbc.Driver");
                 //con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
                 //File f = new File("src\\resources\\sales_report.jrxml");
-                InputStream inputStream = getClass().getResourceAsStream("/resources/sales_report.jrxml");
+                InputStream inputStream = getClass().getResourceAsStream("/resources/report/sales_report.jrxml");
                 if (inputStream == null) {
                     throw new IllegalArgumentException("File not found in resources: sales_report.jrxml");
                 }
@@ -214,11 +214,13 @@ public class reports extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"No Records found between these Dates");
                 }
                 db.closeConnection(con);
-            } catch (IllegalArgumentException | JRException ex) {
-                System.out.println(ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,ex.getStackTrace());
+
             }
         } else {
-            System.out.println("Error: One of the date pickers is null!");
+            JOptionPane.showMessageDialog(null,"Error: One of the date pickers is null!");
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -244,9 +246,9 @@ public class reports extends javax.swing.JPanel {
             Connection con = db.mycon(); // Your database connection method
 
             try {
-                InputStream inputStream = getClass().getResourceAsStream("/resources/GRN_report_2.jrxml");
+                InputStream inputStream = getClass().getResourceAsStream("/resources/report/GRN_report.jrxml");
                 if (inputStream == null) {
-                    throw new IllegalArgumentException("File not found in resources: GRN_report_2.jrxml");
+                    throw new IllegalArgumentException("File not found in resources: GRN_report.jrxml");
                 }
 
                 JasperReport jr = JasperCompileManager.compileReport(inputStream);
@@ -259,11 +261,12 @@ public class reports extends javax.swing.JPanel {
                 }
                 db.closeConnection(con);
 
-            } catch (IllegalArgumentException | JRException ex) {
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,ex.getStackTrace());
                 ex.printStackTrace();
             }
         } else {
-            System.out.println("Error: One of the date pickers is null!");
+            JOptionPane.showMessageDialog(null,"Error: One of the date pickers is null!");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -290,7 +293,7 @@ public class reports extends javax.swing.JPanel {
             Connection con = db.mycon();
             try {
 
-                InputStream inputStream = getClass().getResourceAsStream("/resources/Customer_report.jrxml");
+                InputStream inputStream = getClass().getResourceAsStream("/resources/report/Customer_report.jrxml");
                 if (inputStream == null) {
                     throw new IllegalArgumentException("File not found in resources: Customer_report.jrxml");
                 }
@@ -307,10 +310,12 @@ public class reports extends javax.swing.JPanel {
                 db.closeConnection(con);
 
             } catch (IllegalArgumentException | JRException ex) {
+                JOptionPane.showMessageDialog(null,ex);
+
                 System.out.println(ex);
             }
         } else {
-            System.out.println("Error: One of the date pickers is null!");
+            JOptionPane.showMessageDialog(null,"Error: One of the date pickers is null!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

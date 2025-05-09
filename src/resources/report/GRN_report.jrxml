@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GRN_invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7eebaa4-068b-407f-bf7a-d4c2e72a1292">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GRN_report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
     <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYCON.jrdax"/>
     <style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
@@ -102,25 +102,24 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
         <groupHeader>
             <band height="55">
                 <rectangle>
-                    <reportElement mode="Opaque" x="0" y="13" width="553" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="6e6a2f69-aed6-45fd-bd5d-08c1142e76c2"/>
+                    <reportElement mode="Opaque" x="0" y="13" width="553" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" />
                 </rectangle>
                 <textField>
-                    <reportElement style="SubTitle" x="75" y="13" width="100" height="24" forecolor="#006600" uuid="a40f049d-f9e2-40b3-abb5-cf195d75021c"/>
+                    <reportElement style="SubTitle" x="75" y="13" width="100" height="24" forecolor="#006600"/>
                     <textElement>
                         <font isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{GRN_NO}]]></textFieldExpression>
                 </textField>
                 <staticText>
-                    <reportElement x="0" y="12" width="100" height="30" uuid="5712432d-336b-4ce5-9027-65cc60e5d4f6"/>
+                    <reportElement x="0" y="12" width="100" height="30"/>
                     <textElement>
                         <font size="16" isBold="true"/>
                     </textElement>
                     <text><![CDATA[GRN No :]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement style="Column header" x="390" y="18" width="100" height="15" uuid="17cfe60c-c3b2-4309-b751-391c30c602cc">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0c6f31d-009d-4037-a335-9c86c98e777c"/>
+                    <reportElement style="Column header" x="390" y="18" width="100" height="15" >
                     </reportElement>
                     <textElement>
                         <font size="12"/>
@@ -128,14 +127,12 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
                     <text><![CDATA[Purchase Date:]]></text>
                 </staticText>
                 <textField>
-                    <reportElement style="Detail" x="480" y="18" width="100" height="15" uuid="0327747d-add0-4e24-89bb-7ec4982b9b3d">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0c6f31d-009d-4037-a335-9c86c98e777c"/>
+                    <reportElement style="Detail" x="480" y="18" width="100" height="15" >
                     </reportElement>
                     <textFieldExpression><![CDATA[$F{Exp_Date}]]></textFieldExpression>
                 </textField>
                 <staticText>
-                    <reportElement style="Column header" x="180" y="16" width="70" height="20" uuid="98db3bad-3c15-4d1f-a9db-b39c1456e2cc">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93be55f8-bce4-49ee-a3c6-68a41d2fb907"/>
+                    <reportElement style="Column header" x="180" y="16" width="70" height="20" >
                     </reportElement>
                     <textElement>
                         <font size="14"/>
@@ -143,8 +140,7 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
                     <text><![CDATA[Supplier :]]></text>
                 </staticText>
                 <textField>
-                    <reportElement style="Detail" x="250" y="17" width="130" height="17" uuid="def25088-fa3b-48fb-b8dc-cc9b85fd3c0b">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93be55f8-bce4-49ee-a3c6-68a41d2fb907"/>
+                    <reportElement style="Detail" x="250" y="17" width="130" height="17" >
                     </reportElement>
                     <textElement>
                         <font size="14"/>
@@ -156,38 +152,32 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
         <groupFooter>
             <band height="55">
                 <staticText>
-                    <reportElement style="Column header" x="390" y="37" width="70" height="15" uuid="78a592dd-2ee8-4a6a-9f08-5c4d4a512b1f">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ba9e864-9aba-41ae-8292-e08b8a024b28"/>
+                    <reportElement style="Column header" x="390" y="37" width="70" height="15" >
                     </reportElement>
                     <text><![CDATA[Net_Total :]]></text>
                 </staticText>
                 <textField>
-                    <reportElement style="Detail" x="460" y="37" width="70" height="15" uuid="9fa65a2f-3ef4-44a4-b3a3-0f9ad07d0181">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ba9e864-9aba-41ae-8292-e08b8a024b28"/>
+                    <reportElement style="Detail" x="460" y="37" width="70" height="15" >
                     </reportElement>
                     <textFieldExpression><![CDATA[$F{Net_Total}]]></textFieldExpression>
                 </textField>
                 <staticText>
-                    <reportElement style="Column header" x="390" y="16" width="70" height="15" uuid="7a1e0962-f5c7-4275-a16d-19a155b69617">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5ce719c-22a7-4e08-ad20-7bba938ac5c1"/>
+                    <reportElement style="Column header" x="390" y="16" width="70" height="15" >
                     </reportElement>
                     <text><![CDATA[Discount :]]></text>
                 </staticText>
                 <textField>
-                    <reportElement style="Detail" x="460" y="16" width="70" height="15" uuid="c4d9fab8-6ec6-43f7-b013-b06f06768d24">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5ce719c-22a7-4e08-ad20-7bba938ac5c1"/>
+                    <reportElement style="Detail" x="460" y="16" width="70" height="15">
                     </reportElement>
                     <textFieldExpression><![CDATA[$F{Discount}]]></textFieldExpression>
                 </textField>
                 <staticText>
-                    <reportElement style="Column header" x="252" y="16" width="68" height="15" uuid="c68234be-958e-43e5-8557-f3fc0bf9ad52">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8a73eff-edb3-4281-9df2-92b47498e2db"/>
+                    <reportElement style="Column header" x="252" y="16" width="68" height="15">
                     </reportElement>
                     <text><![CDATA[Sub_Total :]]></text>
                 </staticText>
                 <textField>
-                    <reportElement style="Detail" x="320" y="16" width="70" height="15" uuid="5f3f0d32-a903-4180-9c3f-a0f71f2ac33b">
-                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8a73eff-edb3-4281-9df2-92b47498e2db"/>
+                    <reportElement style="Detail" x="320" y="16" width="70" height="15">
                     </reportElement>
                     <textFieldExpression><![CDATA[$F{Sub_Total}]]></textFieldExpression>
                 </textField>
@@ -200,14 +190,14 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
     <title>
         <band height="70" splitType="Stretch">
             <staticText>
-                <reportElement style="Title" x="0" y="13" width="310" height="47" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
+                <reportElement style="Title" x="0" y="13" width="310" height="47"/>
                 <textElement verticalAlignment="Middle">
                     <font size="29"/>
                 </textElement>
                 <text><![CDATA[Patel Provision Store]]></text>
             </staticText>
             <staticText>
-                <reportElement style="SubTitle" x="286" y="46" width="174" height="22" uuid="0b5308cc-82cf-49a0-8011-6f875d4c5e32"/>
+                <reportElement style="SubTitle" x="286" y="46" width="174" height="22"/>
                 <text><![CDATA[Goods Recieve Note]]></text>
             </staticText>
         </band>
@@ -218,49 +208,43 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
     <columnHeader>
         <band height="50" splitType="Stretch">
             <line>
-                <reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="d69c6691-e92e-45c5-bf2d-c1dc15dabb91"/>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
                 <graphicElement>
                     <pen lineWidth="0.5" lineColor="#999999"/>
                 </graphicElement>
             </line>
             <staticText>
-                <reportElement style="Column header" x="12" y="19" width="50" height="15" uuid="1e6ed2b6-2126-44f2-b187-3e3ae8f38f90">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="094cca84-6f83-4468-90eb-6f31a752776c"/>
+                <reportElement style="Column header" x="12" y="19" width="50" height="15">
                 </reportElement>
                 <text><![CDATA[Barcode]]></text>
             </staticText>
             <staticText>
-                <reportElement style="Column header" x="93" y="19" width="65" height="15" uuid="4abd7ba0-6e9a-4227-9261-7f0e8b13527e">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fca3ee2c-21ce-4d3b-9652-337f49882467"/>
+                <reportElement style="Column header" x="93" y="19" width="65" height="15">
                 </reportElement>
                 <text><![CDATA[Itm_Name]]></text>
             </staticText>
             <staticText>
-                <reportElement style="Column header" x="190" y="18" width="50" height="15" uuid="0c5a6f73-96ce-4bfe-a244-96a1cce6bcbf">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4652c317-29b4-4c10-aaad-c6ba04a768ea"/>
+                <reportElement style="Column header" x="190" y="18" width="50" height="15">
                 </reportElement>
                 <text><![CDATA[Qty]]></text>
             </staticText>
             <staticText>
-                <reportElement style="Column header" x="270" y="18" width="70" height="15" uuid="6a36f423-5abd-48b0-b6d1-127f6841e7e9">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3185f499-73d2-4d07-a23f-a98485044d1a"/>
+                <reportElement style="Column header" x="270" y="18" width="70" height="15">
                 </reportElement>
                 <text><![CDATA[Cost_Price]]></text>
             </staticText>
             <staticText>
-                <reportElement style="Column header" x="360" y="19" width="65" height="15" uuid="a3bf06a8-2605-4899-89a2-5d4cd3d7e75c">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df294ede-2455-49ca-81ea-475f0074e142"/>
+                <reportElement style="Column header" x="360" y="19" width="65" height="15">
                 </reportElement>
                 <text><![CDATA[Sell_Price]]></text>
             </staticText>
             <staticText>
-                <reportElement style="Column header" x="463" y="21" width="90" height="15" uuid="cb4e49b2-46c9-48ad-bfc9-dbeac7c061df">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df294ede-2455-49ca-81ea-475f0074e142"/>
+                <reportElement style="Column header" x="463" y="21" width="90" height="15">
                 </reportElement>
                 <text><![CDATA[Product total]]></text>
             </staticText>
             <line>
-                <reportElement positionType="FixRelativeToBottom" x="-2" y="0" width="555" height="1" uuid="ecd01908-a143-4ae6-82a3-96297b786e8d"/>
+                <reportElement positionType="FixRelativeToBottom" x="-2" y="0" width="555" height="1"/>
                 <graphicElement>
                     <pen lineWidth="0.5" lineColor="#999999"/>
                 </graphicElement>
@@ -270,43 +254,38 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
     <detail>
         <band height="33" splitType="Stretch">
             <line>
-                <reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="f367c019-9cb7-431c-8713-5a96f9b889aa"/>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
                 <graphicElement>
                     <pen lineWidth="0.5" lineColor="#999999"/>
                 </graphicElement>
             </line>
             <textField>
-                <reportElement style="Detail" x="0" y="0" width="75" height="15" uuid="4b186a9e-ceeb-4c46-bfcd-072f42f2bb10">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="094cca84-6f83-4468-90eb-6f31a752776c"/>
+                <reportElement style="Detail" x="0" y="0" width="75" height="15">
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{Barcode}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="Detail" x="90" y="1" width="85" height="15" uuid="60b35cae-db9e-4490-a992-3fa99d505bf8">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fca3ee2c-21ce-4d3b-9652-337f49882467"/>
+                <reportElement style="Detail" x="90" y="1" width="85" height="15">
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{Itm_Name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="Detail" x="190" y="0" width="50" height="15" uuid="7f110bcd-bbdf-4d69-8bcf-a3a37cdc444b">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4652c317-29b4-4c10-aaad-c6ba04a768ea"/>
+                <reportElement style="Detail" x="190" y="0" width="50" height="15">
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="Detail" x="270" y="0" width="60" height="15" uuid="45d8dbc8-44e6-40e0-b92e-f96e02e2a86c">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3185f499-73d2-4d07-a23f-a98485044d1a"/>
+                <reportElement style="Detail" x="270" y="0" width="60" height="15">
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{Cost_Price}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="Detail" x="365" y="0" width="60" height="15" uuid="19f270fd-6c87-4ad3-a100-221c27ad3409">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df294ede-2455-49ca-81ea-475f0074e142"/>
+                <reportElement style="Detail" x="365" y="0" width="60" height="15">
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{Sell_Price}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="465" y="0" width="90" height="15" uuid="64c1418f-1598-4808-aa50-e14ecc7238ff"/>
+                <reportElement x="465" y="0" width="90" height="15"/>
                 <textFieldExpression><![CDATA[Double.valueOf(Double.valueOf($F{Qty}).doubleValue()*Double.valueOf($F{Cost_Price}).doubleValue())]]></textFieldExpression>
             </textField>
         </band>
@@ -314,7 +293,7 @@ AND substr(g.Exp_Date, 1, 19) <= $P{Date_To}
     <columnFooter>
         <band height="45" splitType="Stretch">
             <line>
-                <reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="02519f40-8679-4e40-a1f1-699bc025a206"/>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
                 <graphicElement>
                     <pen lineWidth="0.5" lineColor="#999999"/>
                 </graphicElement>

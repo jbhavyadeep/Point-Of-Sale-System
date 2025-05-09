@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.PrintJob;
 import java.awt.Toolkit;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -25,12 +26,15 @@ public class Home extends javax.swing.JFrame {
     public Statement s;
     JpanelLoader jpload = new JpanelLoader();
     public int flag;
+    public Connection con;
 
-    public Home(int flag) throws SQLException {
+    public Home(int flag,Connection con) throws SQLException {
         initComponents();
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/payment.png"));
         this.setIconImage(icon.getImage());
-        this.s = db.mycon().createStatement();
+        this.con = con;
+        this.s = con.createStatement();
+        
         this.flag = flag;
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         load();
@@ -72,8 +76,14 @@ public class Home extends javax.swing.JFrame {
     }
 
     public void load() {
-        sales sl = new sales(s);
-        jpload.jPanelLoader(jScrollPane1, sl);
+        sales sl;
+        try {
+            sl = new sales(con);
+             jpload.jPanelLoader(jScrollPane1, sl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     @SuppressWarnings("unchecked")
@@ -99,6 +109,7 @@ public class Home extends javax.swing.JFrame {
         curr_date = new javax.swing.JLabel();
         curr_time = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         app_exit = new javax.swing.JMenu();
@@ -301,14 +312,23 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Time: ");
 
+        jButton1.setText("Calculator");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -322,17 +342,22 @@ public class Home extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(curr_date))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(curr_time))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(curr_date))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(curr_time)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setBackground(new java.awt.Color(167, 178, 194));
@@ -421,8 +446,14 @@ public class Home extends javax.swing.JFrame {
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // Sales
 
-        sales sl = new sales(s);
-        jpload.jPanelLoader(jScrollPane1, sl);
+        sales sl;
+        try {
+            sl = new sales(con);
+            jpload.jPanelLoader(jScrollPane1, sl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
@@ -512,45 +543,51 @@ public class Home extends javax.swing.JFrame {
         jpload.jPanelLoader(jScrollPane1, bar);
     }//GEN-LAST:event_barcode_genActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         Calculator cal = new Calculator();
+        jpload.jPanelLoader(jScrollPane1, cal);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Home(1).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    new Home(1).setVisible(true);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu app_exit;
@@ -558,6 +595,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel curr_date;
     private javax.swing.JLabel curr_time;
     private javax.swing.ButtonGroup home_btn_grp;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

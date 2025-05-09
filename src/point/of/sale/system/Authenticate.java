@@ -5,6 +5,7 @@
 package point.of.sale.system;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -23,11 +25,35 @@ public class Authenticate extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    public Connection con;
+
     public Authenticate() {
         initComponents();
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/payment.png"));
         this.setIconImage(icon.getImage());
         this.setTitle("POS Patel Provision Store");
+        jProgressBar1.setVisible(false);
+        connectDb();
+    }
+    
+    public void connectDb(){
+        new Thread(()->{
+           try {
+            con = db.mycon();
+        } catch (Exception e) {
+            e.printStackTrace(); 
+
+        } 
+           if (con == null) {
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(null,
+                "Failed to connect to the database.\nPlease check your internet or database configuration.",
+                "Connection Error", JOptionPane.ERROR_MESSAGE);
+        });
+        return;
+    }
+        }).start();
+        
     }
 
     /**
@@ -46,6 +72,7 @@ public class Authenticate extends javax.swing.JFrame {
         user_password = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,11 +126,14 @@ public class Authenticate extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Enter Password :");
 
+        jProgressBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBar1.setForeground(new java.awt.Color(0, 153, 204));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(204, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -119,6 +149,9 @@ public class Authenticate extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(278, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +168,9 @@ public class Authenticate extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(56, 56, 56)
                 .addComponent(user_login, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,9 +184,7 @@ public class Authenticate extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -163,43 +196,76 @@ public class Authenticate extends javax.swing.JFrame {
 
     private void user_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_loginActionPerformed
         // TODO add your handling code here:
-        String user_Name = user_name.getText();
+        jProgressBar1.setVisible(true);
+        
+        jProgressBar1.setIndeterminate(true); // Start progress animation
+
+    new Thread(() -> {
+        String user_Name = user_name.getText().trim();
         char[] pass = user_password.getPassword();
         String password = String.valueOf(pass);
         String uid = "";
-        System.out.print(user_Name);
-        System.out.print(password);
-        
-        Connection con = db.mycon();
-        try {
-            Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("SELECT uid FROM authenticate WHERE user_name = '"+user_Name+"' AND password = '"+password+"'");
-            while(rs.next()){
+
+        try (
+             PreparedStatement ps = con.prepareStatement(
+                 "SELECT uid FROM authenticate WHERE user_name = ? AND password = ?")) {
+
+            ps.setString(1, user_Name);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
                 uid = rs.getString("uid");
-                System.out.print(uid);
-
             }
-            if(null == uid){
-                JOptionPane.showMessageDialog(null, "Wrong ID or Password");
-            }else switch (uid) {
-                case "1":
-                    new Home(1).setVisible(true);
-                    this.setVisible(false);
-                    break;
-                case "2":
-                    new Home(2).setVisible(true);
-                    this.setVisible(false);
 
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Wrong ID or Password");
-                    break;
-            }
         } catch (SQLException ex) {
-            Logger.getLogger(Authenticate.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Wrong ID or Password");
-
+            ex.printStackTrace();
+            SwingUtilities.invokeLater(() -> {
+                jProgressBar1.setIndeterminate(false);
+                JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+            });
+            return;
         }
+
+        final String resultUid = uid;
+
+        SwingUtilities.invokeLater(() -> {
+            jProgressBar1.setIndeterminate(false); // Stop progress animation
+
+            if (resultUid.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Wrong ID or Password");
+            } else {
+                switch (resultUid) {
+                    case "1":
+                    {
+                        try {
+                            new Home(1,con).setVisible(true);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Authenticate.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                        Authenticate.this.setVisible(false);
+                        break;
+
+                    case "2":
+                    {
+                        try {
+                            new Home(2,con).setVisible(true);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Authenticate.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                        Authenticate.this.setVisible(false);
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(null, "Unknown UID");
+                        break;
+                }
+            }
+        });
+
+    }).start();
 
     }//GEN-LAST:event_user_loginActionPerformed
 
@@ -231,44 +297,49 @@ public class Authenticate extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Authenticate().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Authenticate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        
+//        /* Create and display the form */
+//        Authenticate ac = new Authenticate();
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                ac.setVisible(true);
+//            }
+//            
+//        });
+//        
+//        
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JButton user_login;
     private javax.swing.JTextField user_name;
     private javax.swing.JPasswordField user_password;

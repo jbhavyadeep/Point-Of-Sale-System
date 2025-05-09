@@ -35,10 +35,10 @@ public class AppLauncher {
                         lockFile.delete();
                     }
                 }));
-                
+            
                 // Launch the application
                 java.awt.EventQueue.invokeLater(() -> {
-                    PointOfSaleSystem.updateSalesTable();
+                    //PointOfSaleSystem.updateSalesTable();
                     new Authenticate().setVisible(true);
                     //new Home().setVisible(true);
                 });
@@ -53,7 +53,7 @@ public class AppLauncher {
     private static boolean isAppAlreadyRunning() {
         
         try {
-            String userHome = System.getProperty("APPDATA");
+            String userHome = System.getenv("APPDATA");
             lockFile = new File(userHome, ".POS.lock");
             
             // Open the file in read-write mode and try to acquire a lock

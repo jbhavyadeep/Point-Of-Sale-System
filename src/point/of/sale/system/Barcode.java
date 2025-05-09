@@ -187,25 +187,35 @@ public class Barcode extends javax.swing.JPanel {
     private void barcode_genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_genActionPerformed
         // TODO add your handling code here:
         Random rand = new Random();
-        int max = 1000000000;
-        int min = 100000000;
-        long gen_barcode = rand.nextInt(max - min + 1) + min;
-        String barcode = Long.toString(gen_barcode);
-        
-        System.out.println(gen_barcode);
-        try {
-            ResultSet rs = s.executeQuery("SELECT COUNT(*) FROM product WHERE Bar_code = '" + barcode + "'");
-            ResultSet rs2 = s.executeQuery("SELECT COUNT(*) FROM genbarcode WHERE gen_barcode = '"+ barcode +"'");
-            if (rs.next() && rs.getInt(1) > 0 && rs2.next() && rs2.getInt(1)>0) {
-                System.out.println("Barcode existS.");
-            } else {
-                
+    int max = 1000000000;
+    int min = 100000000;
+    boolean barcodeExists = true;
+    
+    try {
+        while (barcodeExists) {
+            long gen_barcode = rand.nextInt(max - min + 1) + min;
+            String barcode = Long.toString(gen_barcode);
+            System.out.println("Generated barcode: " + barcode);
+
+            // Check both tables
+            ResultSet rs1 = s.executeQuery("SELECT COUNT(*) FROM product WHERE Bar_code = '" + barcode + "'");
+            boolean existsInProduct = rs1.next() && rs1.getInt(1) > 0;
+            rs1.close(); // Important: close ResultSet before next query
+
+            ResultSet rs2 = s.executeQuery("SELECT COUNT(*) FROM genbarcode WHERE gen_barcode = '" + barcode + "'");
+            boolean existsInGenBarcode = rs2.next() && rs2.getInt(1) > 0;
+            rs2.close();
+
+            if (!existsInProduct && !existsInGenBarcode) {
                 b_data.setText(barcode);
+                barcodeExists = false; // exit loop
+            } else {
+                System.out.println("Barcode exists, generating a new one...");
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Barcode.class.getName()).log(Level.SEVERE, null, ex);
         }
+    } catch (SQLException ex) {
+        Logger.getLogger(Barcode.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_barcode_genActionPerformed
 
 

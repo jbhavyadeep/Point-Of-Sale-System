@@ -69,7 +69,7 @@ public class invoice extends javax.swing.JPanel {
             DefaultTableModel dt = (DefaultTableModel) jTable2.getModel();
             dt.setRowCount(0);
             //Statement s = db.mycon().createStatement();
-            ResultSet rs = s.executeQuery("SELECT cartid, product_name, Bar_code, qty, Total_Price FROM cart WHERE INID LIKE '%" + inid + "%' AND Bar_code LIKE '%" + barcode + "%' AND is_returned = FALSE");
+            ResultSet rs = s.executeQuery("SELECT cartid, product_name, Bar_code, qty, default_type, Total_Price FROM cart WHERE INID LIKE '%" + inid + "%' AND Bar_code LIKE '%" + barcode + "%' AND is_returned = FALSE");
 
             while (rs.next()) {
                 Vector v = new Vector();
@@ -79,7 +79,7 @@ public class invoice extends javax.swing.JPanel {
                 v.add(rs.getString(3));
                 v.add(rs.getString(4));
                 v.add(rs.getString(5));
-
+                v.add(rs.getString(6));
                 dt.addRow(v);
             }
 
@@ -95,7 +95,7 @@ public class invoice extends javax.swing.JPanel {
             DefaultTableModel dt = (DefaultTableModel) jTable2.getModel();
             dt.setRowCount(0);
             //Statement s = db.mycon().createStatement();
-            ResultSet rs = s.executeQuery("SELECT cartid ,product_name, Bar_code, qty, Total_Price FROM cart WHERE INID = '" + inid + "' and is_returned = FALSE");
+            ResultSet rs = s.executeQuery("SELECT cartid ,product_name, Bar_code, qty, default_type, Total_Price FROM cart WHERE INID = '" + inid + "' and is_returned = FALSE");
 
             while (rs.next()) {
                 Vector v = new Vector();
@@ -105,6 +105,7 @@ public class invoice extends javax.swing.JPanel {
                 v.add(rs.getString(3));
                 v.add(rs.getString(4));
                 v.add(rs.getString(5));
+                v.add(rs.getString(6));
 
                 dt.addRow(v);
             }
@@ -215,7 +216,7 @@ public class invoice extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cart ID", "Product Name", "Barcode", "Qty", "Total Price"
+                "Cart ID", "Product Name", "Barcode", "Qty", "Type", "Total Price"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -411,7 +412,7 @@ public class invoice extends javax.swing.JPanel {
         String name = jTable2.getValueAt(rw, 1).toString();
         String barCode = jTable2.getValueAt(rw, 2).toString();
 
-        Double add_bal = Double.valueOf(jTable2.getValueAt(rw, 4).toString());
+        Double add_bal = Double.valueOf(jTable2.getValueAt(rw, 5).toString());
         String cart_id = jTable2.getValueAt(rw, 0).toString();
         Double qty = Double.valueOf(jTable2.getValueAt(rw, 3).toString());
         Double oldqty = 0.0;

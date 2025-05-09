@@ -56,13 +56,13 @@ public class product extends javax.swing.JPanel {
         p_price.setText("");
         p_Seprice.setText("");
         p_qty.setText("");
-        p_unit.setText("");
+        
         if(flag==2){
             p_type.setText("2");
         }else{
         p_type.setText("");}
         p_cat.setText("");
-        p_sid.setText("");
+        
         p_brand.setText("");
         p_des.setText("");
         mf_date.setDate(null);
@@ -283,8 +283,6 @@ public class product extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         exp_date = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
-        p_unit = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         product_type = new javax.swing.JLabel();
         p_type = new javax.swing.JTextField();
         p_brand = new javax.swing.JTextField();
@@ -292,6 +290,7 @@ public class product extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         p_des = new javax.swing.JTextArea();
+        product_unit = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -432,7 +431,7 @@ public class product extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(p_search, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addGap(14, 14, 14))
         );
         jPanel4Layout.setVerticalGroup(
@@ -589,16 +588,6 @@ public class product extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("EXP Date :");
 
-        p_unit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_unit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                p_unitActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Default Unit :");
-
         product_type.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         product_type.setText("Default Type :");
 
@@ -626,14 +615,13 @@ public class product extends javax.swing.JPanel {
         p_des.setRows(3);
         jScrollPane5.setViewportView(p_des);
 
+        product_unit.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        product_unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unit", "KG", "Litre" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,29 +633,36 @@ public class product extends javax.swing.JPanel {
                         .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(product_type, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(p_Seprice, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(p_bcode, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                        .addComponent(p_name)
-                                        .addComponent(p_price))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(p_unit, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(p_Seprice, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(p_bcode, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                                                .addComponent(p_name)
+                                                .addComponent(p_price))))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(product_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(113, 113, 113)
+                                    .addComponent(p_type, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(product_type)
+                                    .addGap(330, 330, 330))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -753,11 +748,8 @@ public class product extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(p_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(product_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(product_type)
@@ -1033,10 +1025,6 @@ public class product extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_p_brandActionPerformed
 
-    private void p_unitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_unitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_p_unitActionPerformed
-
     private void com_CatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_CatActionPerformed
         //
         p_cat.setText(com_Cat.getSelectedItem().toString());
@@ -1104,7 +1092,9 @@ public class product extends javax.swing.JPanel {
         String qty = p_qty.getText();
         String sid = p_sid.getText();
         String sprice = p_Seprice.getText();
-        String unit = p_unit.getText();
+        //String unit = p_unit.getText();
+        String unit = product_unit.getSelectedItem().toString();
+
         String type = p_type.getText();
         //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         //  String mfdate = sdf.format(mf_date.getDate());
@@ -1158,7 +1148,9 @@ public class product extends javax.swing.JPanel {
         String qty = p_qty.getText();
         String sid = p_sid.getText();
         String sprice = p_Seprice.getText();
-        String unit = p_unit.getText();
+        //String unit = p_unit.getText();
+        String unit = product_unit.getSelectedItem().toString();
+        System.out.println(unit);
         String type = p_type.getText();
         // SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         //String mfdate = sdf.format(mf_date.getDate());
@@ -1189,9 +1181,8 @@ public class product extends javax.swing.JPanel {
         String descript = p_des.getText();
 
         String sname = com_sup.getSelectedItem().toString();
-
-        // `pid`, `product_name`, `Bar_code`, `price`, `quantity`, `Sid`
-        try{
+        if(!sname.equalsIgnoreCase("Select a supplier")){
+            try{
            // Statement s = db.mycon().createStatement();
             s.executeUpdate("INSERT INTO product (product_name, Bar_code, price, Sell_price, quantity, Sid, supplier_name, default_unit, default_type, mf_date, exp_date, category, brand_name, description) "
                 + "VALUES ('"+name+"','"+bcode+"','"+price+"','"+sprice+"','"+qty+"','"+sid+"', '"+sname+"', '"+unit+"', '"+type+"', '"+mfdate+"', '"+exdate+"', '"+category+"', '"+brand+"', '"+descript+"')");
@@ -1200,6 +1191,11 @@ public class product extends javax.swing.JPanel {
         }catch(HeadlessException | SQLException e){
             System.out.println(e);
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please Select a Supplier","Incomplete Fields",JOptionPane.ERROR_MESSAGE);
+        }
+        // `pid`, `product_name`, `Bar_code`, `price`, `quantity`, `Sid`    
+        
 
         tb_load();
         clearField();
@@ -1258,7 +1254,7 @@ public class product extends javax.swing.JPanel {
         p_qty.setText(qty);
         p_sid.setText(sid);
         p_Seprice.setText(sprice);
-        p_unit.setText(dunit);
+        product_unit.setSelectedItem(dunit);
         p_type.setText(dtype);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -1340,7 +1336,6 @@ public class product extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1387,8 +1382,8 @@ public class product extends javax.swing.JPanel {
     private javax.swing.JTextField p_search_tb1;
     private javax.swing.JTextField p_sid;
     private javax.swing.JTextField p_type;
-    private javax.swing.JTextField p_unit;
     private javax.swing.JLabel product_type;
+    private javax.swing.JComboBox<String> product_unit;
     private javax.swing.JTextField ps_barcode;
     private javax.swing.JTextField ps_supname;
     private javax.swing.JTextField t_id;
